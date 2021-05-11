@@ -7,7 +7,7 @@ import Signin from './pages/examples/Signin';
 
 const loading = (
     <div className="pt-3 text-center">
-      <div className="sk-spinner sk-spinner-pulse"></div>
+      <div className="sk-spinner sk-spinner-pulse"> </div>
     </div>
   )
 
