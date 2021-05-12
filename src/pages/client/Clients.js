@@ -5,12 +5,13 @@ import { faCheck, faCog, faHome, faPlus ,faSearch } from '@fortawesome/free-soli
 import { Col, Row, Form, Button, ButtonGroup, Breadcrumb, InputGroup, Dropdown } from '@themesberg/react-bootstrap';
 import { faAmilia, faPhabricator } from "@fortawesome/free-brands-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllClients, deleteClients } from "../../actions/ClientActions";
+import { getAllClients, deleteClients, ActOrDeactClients } from "../../actions/ClientActions";
 import { Nav, Card, Image, Table , ProgressBar, Pagination  } from '@themesberg/react-bootstrap';
 import { Link } from 'react-router-dom';
 import { Routes } from "../../routes";
 import Spinner from '../../helpers/spinner';
 import Swal from "sweetalert2";
+import TablePagination from "@material-ui/core/TablePagination";
 
 const Clients = () => {
 
@@ -36,13 +37,12 @@ const Clients = () => {
     const handleChange = (e) => {
       setSearchTerm(e.target.value);
     };
-   /* useEffect(() => {
+    useEffect(() => {
       setisloading(true);
       dispatch(getAllClients()).then(() => {
         setisloading(false);
-        // window.location.reload();
       });
-      //setClients(clientlist.clients);
+      setClients(clientlist.clients);
       if (searchTerm === "") {
         return;
       } else {
@@ -52,7 +52,7 @@ const Clients = () => {
           )
         );
       }
-    }, [clients, searchTerm]);*/
+    }, [clients, searchTerm]);
 
 
     function removeClient(index){
@@ -194,8 +194,8 @@ const Clients = () => {
           </thead>
           <tbody>
             {
-              //(searchTerm === "" ? adminlist.admins : searchResults)
-              clientlist.clients.slice(
+              (searchTerm === "" ? clientlist.clients : searchResults)
+              .slice(
                 page * rowsPerPage,
                 page * rowsPerPage + rowsPerPage
               )
@@ -221,13 +221,13 @@ const Clients = () => {
                       </span>
                   </Dropdown.Toggle>
                   <Dropdown.Menu>
-                  <Dropdown.Item as={Link} to={Routes.ViewClient.path}>
+                  <Dropdown.Item as={Link} to={`/client/ViewClient/${row.id}`}>
                    <FontAwesomeIcon icon={faEye} className="me-2" /> View Details
                   </Dropdown.Item>
                    <Dropdown.Item>
                      <FontAwesomeIcon icon={faPersonBooth} className="me-2"/> User Clients 
                    </Dropdown.Item>
-                  <Dropdown.Item as={Link} to={Routes.UpdateClient.path}>
+                  <Dropdown.Item as={Link} to={`/client/UpdateClient/${row.id}`}>
                     <FontAwesomeIcon icon={faEdit} className="me-2" /> Edit           
                   </Dropdown.Item>
                   <Dropdown.Item className="text-danger" onClick={() => confirmButton()}>
@@ -246,30 +246,23 @@ const Clients = () => {
         </Table>
         )}
         <Card.Footer className="px-3 border-0 d-lg-flex align-items-center justify-content-between">
-         <Nav>
-           <Pagination className="mb-2 mb-lg-0">
-             <Pagination.Prev>
-               Previous
-             </Pagination.Prev>
-             <Pagination.Item active>1</Pagination.Item>
-             <Pagination.Item>2</Pagination.Item>
-             <Pagination.Item>3</Pagination.Item>
-             <Pagination.Item>4</Pagination.Item>
-             <Pagination.Item>5</Pagination.Item>
-             <Pagination.Next>
-               Next
-             </Pagination.Next>
-           </Pagination>
-         </Nav>
-         <small className="fw-bold">
-           Showing <b> </b> out of <b>25</b> entries
-         </small>
-       </Card.Footer>
+         <TablePagination
+            rowsPerPageOptions={[10,15,20,100, 1000, 2000]}
+            component="div"
+            count={
+              searchTerm === "" ? clientlist.clients.length : searchResults.length
+            }
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onChangePage={handleChangePage}
+            onChangeRowsPerPage={handleChangeRowsPerPage}
+          />
+          <small className="fw-bold">
+            Showing <b> </b> out of {page} <b>25</b> entries
+          </small>
+         </Card.Footer>
         </Card.Body>
-        
         </Card>
-  
-      
        </>
       );
   };

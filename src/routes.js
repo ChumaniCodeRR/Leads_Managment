@@ -7,12 +7,14 @@ export const Routes = {
     //newly added pages
     Admin: { path: "/admin/Administration" },
     Client: { path: "/client/Clients"},
+
     UpdateAdmin: { path: "/admin/UpdateAdmin/:id"},
     ViewAdmin : { path: "/admin/ViewAdmin/:id"},
     AdminStatus: { path : "/admin/AdminStatus/:id"},
-
-    UpdateClient : { path: "/client/UpdateClient"},
-    ViewClient: { path: "/client/ViewClient"},
+    UpdateClient : { path: "/client/UpdateClient/:id"},
+    
+    ViewClient: { path: "/client/ViewClient/:id"},
+    
     ClientUsers: { path: "/client-users/clientUsers"},
     CreateAdmin: { path: "/admin/CreateAdmin"},
     CreateClient: { path: "/client/CreateClient"},

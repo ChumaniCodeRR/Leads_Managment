@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBoxOpen, faCartArrowDown, faChartPie,faHome, faChevronDown, faClipboard, faCommentDots, faFileAlt, faPlus, faRocket, faStore } from '@fortawesome/free-solid-svg-icons';
 import { Col, Row, Dropdown } from '@themesberg/react-bootstrap';
@@ -6,8 +6,27 @@ import { Card, Form, Button, Breadcrumb , InputGroup, FormGroup } from '@themesb
 import image from '../../assets/img/marker.svg';
 import { Routes } from "../../routes";
 import { Link, NavLink } from 'react-router-dom';
+import { useDispatch, useSelector } from "react-redux";
+import { getClientById } from '../../actions/ClientActions';
 
-export default () => {
+export default (props) => {
+    
+  const [inputs, setInputs] = useState({
+    name:"",
+    email:"",
+    contact:"",
+    address:""
+   });
+
+   const id = props.match.params.id;
+   const dispatch = useDispatch();
+
+   useEffect(() => {
+    dispatch(getClientById(id)).then((data) => {
+      setInputs({name: data.name, email: data.email, contact: data.contact, address: data.address});
+    });
+  }, []);
+
     return (
         <>
          <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4">     
@@ -41,22 +60,22 @@ export default () => {
            <Col md={6} className="mb-3">
           <Card.Text>             
              <Form.Group id="name">
-                <Form.Label>Name</Form.Label>               
+                <Form.Label>Name : {inputs.name}</Form.Label>               
              </Form.Group>
            </Card.Text>
           <Card.Text>    
            <Form.Group id="email">
-                <Form.Label>Email</Form.Label>           
+                <Form.Label>Email : {inputs.email}</Form.Label>           
             </Form.Group>
            </Card.Text>
            <Card.Text> 
               <Form.Group id="contact">
-                <Form.Label>Contact</Form.Label>        
+                <Form.Label>Contact : {inputs.contact}</Form.Label>        
               </Form.Group>
           </Card.Text>
           <Card.Text>
             <Form.Group id="address">
-              <Form.Label>Address</Form.Label>
+              <Form.Label>Address : {inputs.address} </Form.Label>
             </Form.Group>
           </Card.Text>
            </Col>

@@ -14,7 +14,7 @@ const returnAllClients = async () => {
 
 const createClients = async (data) => {
     const token = getToken();
-    return await axios.post(API_URL + `clients?api_token=${token}`, data)
+    return await axios.post(API_URL + `client?api_token=${token}`, data)
     .then((response) => {
         return response.data;
     })
@@ -25,7 +25,7 @@ const createClients = async (data) => {
 
 const returnClientById = async (id) => {
     const token =  getToken();
-    return await axios.get(API_URL + `clients/${id}?api_token=${token}`).then((response) => {
+    return await axios.get(API_URL + `client/${id}?api_token=${token}`).then((response) => {
         return response.data.data;
     })
     .catch((err) => {
@@ -35,7 +35,7 @@ const returnClientById = async (id) => {
 
 const UpdateClients = async (id,data) => {
     const token = getToken();
-    return await axios.put(API_URL + `clients/${id}?api_token=${token}` , data)
+    return await axios.put(API_URL + `client/${id}?api_token=${token}` , data)
     .then((response) => {
         return response.data;
     })
@@ -46,7 +46,7 @@ const UpdateClients = async (id,data) => {
 
 const removeClients = async (id) => {
     const token = getToken();
-    return await axios.delete(API_URL + `clients/${id}?api_token=${token}`).then((response) => {
+    return await axios.delete(API_URL + `client/${id}?api_token=${token}`).then((response) => {
         return response.data.data;
     })
     .catch((err) => {
@@ -56,7 +56,7 @@ const removeClients = async (id) => {
 
 const actOrdectClients = async (id) => {
     const token = getToken();
-    return await axios.get(API_URL + `clients/${id}?api_token=${token}`).then((response) => {
+    return await axios.get(API_URL + `client-status/${id}?api_token=${token}`).then((response) => {
         return response.data.data;
     })
     .catch((err) => {

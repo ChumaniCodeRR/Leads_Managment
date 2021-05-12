@@ -3,7 +3,8 @@ import { GET_CLIENT_SUCCESS , GET_CLIENT_FAILURE , ADD_CLIENT_SUCCESS, ADD_CLIEN
     import data from '../data/clients';
 
     const initialState = {
-        clients: data,
+        clients: [],
+        clientToEdit: [],
     };
 
     export default function clients(state = initialState , action ) {

@@ -1,6 +1,6 @@
 import ClientsService from '../services/ClientsService';
 import { GET_CLIENT_SUCCESS , GET_CLIENT_FAILURE , ADD_CLIENT_SUCCESS, ADD_CLIENT_FAILURE, EDIT_CLIENT_SUCCESS, EDIT_CLIENT_FAILURE, DELETE_CLIENT_SUCCESS
-    , DELETE_CLIENT_FAILURE, Act_Deact_CLIENT_Success, Act_Deact_CLIENT_Failure } from './type';
+    , DELETE_CLIENT_FAILURE, Act_Deact_CLIENT_Success, Act_Deact_CLIENT_Failure, Act_Deact_Admin_Failure } from './type';
 
     export const getAllClients = () => (dispatch) => {
         return ClientsService.returnAllClients().then((data) => {
@@ -47,7 +47,7 @@ import { GET_CLIENT_SUCCESS , GET_CLIENT_FAILURE , ADD_CLIENT_SUCCESS, ADD_CLIEN
       );
     };
     
-/*
+
     export const editClients = (id,data) => (dispatch) => {
         return ClientsService.UpdateClients(id,data).then((data) => {
             dispatch({
@@ -63,12 +63,23 @@ import { GET_CLIENT_SUCCESS , GET_CLIENT_FAILURE , ADD_CLIENT_SUCCESS, ADD_CLIEN
       );
     };
 
-   
-
-    export const getClientById = (id) = () => {
+    export const getClientById = (id) => () => {
         return ClientsService.returnClientById(id);
     };
 
-    export const ActOrDeactClients = (id) = () => {
-        return ClientsService.actOrdectClients(id);
-    };*/
+    export const ActOrDeactClients = (id,data) => (dispatch) => {
+        return ClientsService.actOrdectClients(id,data).then (
+            (data) => {
+                dispatch({
+                    type: Act_Deact_CLIENT_Success,
+                    payload: data,
+                });
+            },
+            (error) => {
+                dispatch({
+                    type: Act_Deact_CLIENT_Failure,
+                    error
+                });
+            }
+        );
+    };
