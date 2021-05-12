@@ -12,10 +12,11 @@ export const Routes = {
     ViewAdmin : { path: "/admin/ViewAdmin/:id"},
     AdminStatus: { path : "/admin/AdminStatus/:id"},
     UpdateClient : { path: "/client/UpdateClient/:id"},
-    
+
     ViewClient: { path: "/client/ViewClient/:id"},
     
     ClientUsers: { path: "/client-users/clientUsers"},
+    
     CreateAdmin: { path: "/admin/CreateAdmin"},
     CreateClient: { path: "/client/CreateClient"},
     CreateClientUsers: { path: "/client-users/CreateclientUsers"},
