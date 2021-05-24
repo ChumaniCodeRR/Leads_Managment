@@ -84,13 +84,13 @@ const UpdateAdmin = (props) => {
            <Col md={6} className="mb-3">
              <Form.Group id="firstName">
                 <Form.Label>First Name *</Form.Label>
-                <Form.Control type="text" value={inputs.first_name} onChange={onChange} />
+                <Form.Control type="text" value={inputs.first_name} name="first_name" onChange={onChange} />
               </Form.Group>
            </Col>
            <Col md={6} className="mb-3">
            <Form.Group id="lastName">
                 <Form.Label>Last Name</Form.Label>
-                <Form.Control type="text" value={inputs.last_name} onChange={onChange} />
+                <Form.Control type="text" value={inputs.last_name} name="last_name" onChange={onChange} />
               </Form.Group>
            </Col>
          </Row>
@@ -98,13 +98,13 @@ const UpdateAdmin = (props) => {
             <Col md={6} className="mb-3">
               <Form.Group id="emal">
                 <Form.Label>Email</Form.Label>
-                <Form.Control type="email" value={inputs.email} onChange={onChange} />
+                <Form.Control type="email" value={inputs.email} name="email" onChange={onChange} />
               </Form.Group>
             </Col>
             <Col md={6} className="mb-3">
               <Form.Group id="mobilenumber">
                 <Form.Label>Mobile Number</Form.Label>
-                <Form.Control type="text" value={inputs.mobile} onChange={onChange}/>
+                <Form.Control type="text" value={inputs.mobile} name="mobile" onChange={onChange}/>
               </Form.Group>
             </Col>
           </Row>

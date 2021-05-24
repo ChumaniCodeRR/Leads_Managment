@@ -44,9 +44,9 @@ const UpdateClients = async (id,data) => {
     })
 }
 
-const removeClients = async (id) => {
+const removeClients = (id) => {
     const token = getToken();
-    return await axios.delete(API_URL + `client/${id}?api_token=${token}`).then((response) => {
+    return axios.delete(API_URL + `client/${id}?api_token=${token}`).then((response) => {
         return response.data.data;
     })
     .catch((err) => {

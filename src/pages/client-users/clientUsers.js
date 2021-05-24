@@ -5,16 +5,18 @@ import { faCheck, faCog, faHome, faPlus ,faSearch } from '@fortawesome/free-soli
 import { Col, Row, Form, Button, ButtonGroup, Breadcrumb, InputGroup, Dropdown } from '@themesberg/react-bootstrap';
 import { faAmilia, faPhabricator } from "@fortawesome/free-brands-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllClients, deleteClientUsers } from "../../actions/clientUsersActions";
+import { getAllClientUsers, deleteClientUsers } from "../../actions/clientUsersActions";
 import { Nav, Card, Image, Table , ProgressBar, Pagination  } from '@themesberg/react-bootstrap';
 import { Link } from 'react-router-dom';
 import { Routes } from "../../routes";
 import Spinner from '../../helpers/spinner';
 import Swal from "sweetalert2";
+import { getAllClients } from 'src/actions/ClientActions';
+import clients from 'src/reducers/Client';
 
 
 
-const ClientUsers = () => {
+const ClientUsers = (props) => {
 
 
   const [page, setPage] = React.useState(0);
@@ -29,32 +31,45 @@ const ClientUsers = () => {
 
   const dispatch = useDispatch();
   const clientuserslist = useSelector((state) => state.clientUsers);
+  const clientlist = useSelector((state) => state.cilents);
+
   const [isloading, setisloading] = useState(false);
 
-    const [clientUsers, setClients] = useState([]);
-    const [searchTerm, setSearchTerm] = useState("");
-    const [searchResults, setSearchResults] = useState([]);
+  const [clientUsers, setClientsUser] = useState([]);
 
-    const handleChange = (e) => {
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+
+  const id = props.match.params.id;
+
+   const handleChange = (e) => {
       setSearchTerm(e.target.value);
     };
-   /* useEffect(() => {
+    
+   
+
+    useEffect(() => {
       setisloading(true);
-      dispatch(getAllClients()).then(() => {
+      //show no records 
+      if(id === ""){
+         postMessage("message");
+      }
+
+      dispatch(getAllClientUsers(id)).then(() => {
         setisloading(false);
-        // window.location.reload();
       });
-      //setClients(clientlist.clients);
+      setClientsUser(clientuserslist.clientUsers);
+
       if (searchTerm === "") {
         return;
       } else {
         setSearchResults(
-          clients.filter((client) =>
-            client.name.toLowerCase().includes(searchTerm.toLowerCase())
+          clientUsers.filter((clientusers) =>
+            clientusers.name.toLowerCase().includes(searchTerm.toLowerCase())
           )
         );
       }
-    }, [clients, searchTerm]);*/
+    }, [clientUsers, searchTerm]);
 
 
     function removeClient(index){
@@ -112,7 +127,6 @@ const ClientUsers = () => {
     }
 
 
-
     return (
         <>
          <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4">
@@ -164,10 +178,8 @@ const ClientUsers = () => {
              </Col>
            </Row>
          </div>
-
-         <Card border="light" className="table-wrapper table-responsive shadow-sm">
-          <Card.Body className="pt-0">
-            
+      <Card border="light" className="table-wrapper table-responsive shadow-sm">
+        <Card.Body className="pt-0">          
           <Card.Header>
          <Row>
           <Col xs={8} md={6} lg={3} xl={4}>         
@@ -186,64 +198,74 @@ const ClientUsers = () => {
           <Table hover className="user-table align-items-center">
           <thead>
             <tr>
+              <th className="border-top">User</th>
+              <th className="border-top">First Name</th>
+              <th className="border-top">Last Name</th>
+              <th className="border-top">Email </th>
+              <th className="border-top">Mobile</th>
+              <th className="border-top">Is Active</th>
               <th className="border-top">Client Info</th>
-              <th className="border-top">Name</th>
-              <th className="border-top">Email</th>
-              <th className="border-top">Contact </th>
-              <th className="border-top">Address</th>
               <th className="border-top">Action</th>
             </tr>
           </thead>
           <tbody>
             {
-              //(searchTerm === "" ? adminlist.admins : searchResults)
-              clientuserslist.clientUsers.slice(
-                page * rowsPerPage,
-                page * rowsPerPage + rowsPerPage
-              )
-              .map((row) => (
-                <tr key={row.id}>           
-                    <td>
-                      {row.clientInfo}
-                    </td>
-                    <td>
-                      {row.name}
-                    </td>
-                    <td>
-                      {row.email}
-                    </td>
-                    <td>
-                      {row.contact}
-                    </td>
-                    <td>
-                      {row.address}
-                    </td>
-                    <td>
-                  <Dropdown as={ButtonGroup}>
-                  <Dropdown.Toggle as={Button} split variant="link" className="text-dark m-0 p-0">
-                      <span className="icon icon-sm">
-                      <FontAwesomeIcon icon={faEllipsisH} className="icon-dark" />
-                      </span>
-                  </Dropdown.Toggle>
-                  <Dropdown.Menu>
-                  <Dropdown.Item as={Link} to={Routes.ViewClientUsers.path}>
-                   <FontAwesomeIcon icon={faEye} className="me-2" /> View Details
-                  </Dropdown.Item>
-                  <Dropdown.Item as={Link} to={Routes.UpdateClientUsers.path}>
-                    <FontAwesomeIcon icon={faEdit} className="me-2" /> Edit           
-                  </Dropdown.Item>
-                  <Dropdown.Item className="text-danger" onClick={() => confirmButton()}>
-                    <FontAwesomeIcon icon={faTrashAlt} className="me-2" /> Remove
-                  </Dropdown.Item>
-                  <Dropdown.Item onClick={() => confirmButtonAct()}>
-                    <FontAwesomeIcon icon={faAmilia} className="me-2" /> Active/InActive
-                  </Dropdown.Item>
-                  </Dropdown.Menu>
-                  </Dropdown>
-                    </td>
-                </tr>
-              ))
+              //searchTerm === "" ? clientuserslist.clientUsers : searchResults
+
+              clientuserslist.clientUsers.length ? (
+                clientuserslist.clientUsers.slice(
+                  page * rowsPerPage,
+                  page * rowsPerPage + rowsPerPage
+               )
+               .map((row) => (
+                 <tr key={row.id}>        
+                     <td>
+                        {row.user_id}
+                     </td>   
+                     <td>
+                       {row.first_name}
+                     </td>
+                     <td>
+                       {row.last_name}
+                     </td>
+                     <td>
+                       {row.email}
+                     </td>
+                     <td>
+                       {row.mobile}
+                     </td>
+                     <td>
+                       {row.is_active}
+                     </td>
+                     <td>
+                       {row.client}
+                     </td>
+                     <td>
+                   <Dropdown as={ButtonGroup}>
+                   <Dropdown.Toggle as={Button} split variant="link" className="text-dark m-0 p-0">
+                       <span className="icon icon-sm">
+                       <FontAwesomeIcon icon={faEllipsisH} className="icon-dark" />
+                       </span>
+                   </Dropdown.Toggle>
+                   <Dropdown.Menu>
+                   <Dropdown.Item as={Link} to={Routes.UpdateClientUsers.path}>
+                     <FontAwesomeIcon icon={faEdit} className="me-2" /> Edit           
+                   </Dropdown.Item>
+                   <Dropdown.Item className="text-danger" onClick={() => confirmButton()}>
+                     <FontAwesomeIcon icon={faTrashAlt} className="me-2" /> Remove
+                   </Dropdown.Item>
+                   <Dropdown.Item onClick={() => confirmButtonAct()}>
+                     <FontAwesomeIcon icon={faAmilia} className="me-2" /> Active/InActive
+                   </Dropdown.Item>
+                   </Dropdown.Menu>
+                   </Dropdown>
+                     </td>
+                 </tr>               
+               ))    
+              ) : <div>No record</div>
+              
             }
+            
           </tbody>
         </Table>
         )}
@@ -267,14 +289,10 @@ const ClientUsers = () => {
            Showing <b> </b> out of <b>25</b> entries
          </small>
        </Card.Footer>
-
           </Card.Body>
          </Card>
-
-
         </>
-        
-       );
+      );
 }
 
 export default ClientUsers

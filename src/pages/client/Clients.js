@@ -224,13 +224,13 @@ const Clients = () => {
                   <Dropdown.Item as={Link} to={`/client/ViewClient/${row.id}`}>
                    <FontAwesomeIcon icon={faEye} className="me-2" /> View Details
                   </Dropdown.Item>
-                   <Dropdown.Item>
+                   <Dropdown.Item as={Link} to={`/client-users/clientUsers/${row.id}`}>
                      <FontAwesomeIcon icon={faPersonBooth} className="me-2"/> User Clients 
                    </Dropdown.Item>
                   <Dropdown.Item as={Link} to={`/client/UpdateClient/${row.id}`}>
                     <FontAwesomeIcon icon={faEdit} className="me-2" /> Edit           
                   </Dropdown.Item>
-                  <Dropdown.Item className="text-danger" onClick={() => confirmButton()}>
+                  <Dropdown.Item className="text-danger" onClick={() => confirmButton(row.id)}>
                     <FontAwesomeIcon icon={faTrashAlt} className="me-2" /> Remove
                   </Dropdown.Item>
                   <Dropdown.Item onClick={() => confirmButtonAct()}>

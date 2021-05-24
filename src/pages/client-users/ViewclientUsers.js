@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBoxOpen, faCartArrowDown, faChartPie,faHome, faChevronDown, faClipboard, faCommentDots, faFileAlt, faPlus, faRocket, faStore } from '@fortawesome/free-solid-svg-icons';
 import { Col, Row, Dropdown } from '@themesberg/react-bootstrap';
@@ -6,11 +6,44 @@ import { Card, Form, Button, Breadcrumb , InputGroup, FormGroup } from '@themesb
 import image from '../../assets/img/marker.svg';
 import { Routes } from "../../routes";
 import { Link, NavLink } from 'react-router-dom';
+import { getAllClientUsers, deleteClientUsers } from "../../actions/clientUsersActions";
+import { useDispatch, useSelector } from "react-redux";
+import clientUsers, { ClientUsers } from '../../data/clientUsers';
 
-export default () => {
+
+export default (props) => {
+
+  const [inputs, setInputs] = useState({
+    user_id:"",
+    first_name:"",
+    last_name:"",
+    mobile:"",
+    email:"",
+    is_active:"",
+    client:""
+   });
+
+  const id = props.match.params.id;
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getAllClientUsers(id)).then((data) => {
+      setInputs({
+        user_id: data.user_id,
+        first_name: data.first_name, 
+        last_name:data.last_name, 
+        mobile:data.mobile,
+        email:data.email,
+        is_active:data.is_active,
+        client:data.client});
+    });
+  }, []);
+
+
     return (
         <>
          
+        
          <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4">     
           <div className="d-block mb-4 mb-md-0">
             <Breadcrumb className="d-none d-md-inline-block" listProps={{ className: "breadcrumb-dark breadcrumb-transparent" }}>
@@ -47,7 +80,7 @@ export default () => {
            </Card.Text>
           <Card.Text>             
              <Form.Group id="name">
-                <Form.Label>Name</Form.Label>               
+                <Form.Label>Name : {inputs.user_id}</Form.Label>               
              </Form.Group>
            </Card.Text>
           <Card.Text>    
@@ -72,7 +105,7 @@ export default () => {
     </Card>
               </Col>
             </Row>
-
+            
         </>
     );
 };

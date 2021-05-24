@@ -85,13 +85,13 @@ export default (props) => {
             <Col md={6} className="mb-3">
                <Form.Group id="name">
                   <Form.Label>Name</Form.Label>
-                  <Form.Control type="text" value={inputs.name} onChange={onChange} />
+                  <Form.Control type="text" value={inputs.name} name="name" onChange={onChange} />
                 </Form.Group>
              </Col>
              <Col md={6} className="mb-3">
              <Form.Group id="email">
                   <Form.Label>Email Address</Form.Label>
-                  <Form.Control type="text" value={inputs.email} onChange={onChange} />
+                  <Form.Control type="text" value={inputs.email} name="email" onChange={onChange} />
                 </Form.Group>
              </Col>
           </Row>
@@ -99,13 +99,13 @@ export default (props) => {
                <Col md={6} className="mb-3">
                 <Form.Group id="contact">
                   <Form.Label>Contact</Form.Label>
-                  <Form.Control type="text" value={inputs.contact} onChange={onChange} />
+                  <Form.Control type="text" value={inputs.contact} name="contact" onChange={onChange} />
                 </Form.Group>
               </Col>
               <Col md={6} className="mb-3">
                 <Form.Group id="address">
                   <Form.Label>Address</Form.Label>
-                  <Form.Control type="text" value={inputs.address} onChange={onChange} />
+                  <Form.Control type="text" value={inputs.address} name="address" onChange={onChange} />
                 </Form.Group>
               </Col>
           </Row>
