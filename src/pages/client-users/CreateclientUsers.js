@@ -164,6 +164,7 @@ const CreateClientUsers = (props) => {
                        {clientlist.clients.map(item =>
                        <option id={item.id} value={item.id == client_list_id}>
                           {item.name}
+                          {item.client_list_id}
                        </option>
                       ) 
                       }
