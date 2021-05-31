@@ -23,7 +23,7 @@ const CreateClientUsers = (props) => {
     last_name:"",
     email:"",
     mobile:"",
-    client_list_id: "19",
+    client_list_id: "",
   })
 
     const { register , handleSubmit, formState: { errors } }  = useForm();
@@ -34,7 +34,7 @@ const CreateClientUsers = (props) => {
     const [clients, setClients] = useState([]);
 
     const id = props.match.params.id;
-    
+
     const [isloading, setisloading] = useState(false);
    // set value for default selection
     const [selectedValue, setSelectedValue] = useState(0);
@@ -50,14 +50,14 @@ const CreateClientUsers = (props) => {
     }));
   };
     
-  
- 
 // handle onChange event of the dropdown
    const handleChange = e => {
      setSelectedValue(e.value);
+    /// const index = e.target.selectedIndex;
+    // const el = e.target.childNodes[index]
+     //const option =  el.getAttribute('id');  
    }
 
-  
     function onChange(e) {
       const { name, value } = e.target;
       setInputs((inputs) => ({ ...inputs, [name]: value }));
@@ -160,11 +160,15 @@ const CreateClientUsers = (props) => {
                  <Form.Group id="clientId">
                    <Form.Label>Select Client</Form.Label>
                    <Form.Select id="client" onChange={handleChange}>
-                     {
-                       clientlist.clients.map((item)=>{
-                           return <option key={item.id} value={item.id}>{item.name}</option>
-                       })
-                     }
+                     
+                       {clientlist.clients.map(item =>
+                       <option id={item.id} value={item.id == client_list_id}>
+                          {item.name}
+                       </option>
+                      ) 
+                      }
+                    
+
                    </Form.Select>
                  </Form.Group>
               </Col>
