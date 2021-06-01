@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBoxOpen, faCartArrowDown, faChartPie, faChevronDown, faHome ,faClipboard, faCommentDots, faFileAlt, faPlus, faRocket, faStore } from '@fortawesome/free-solid-svg-icons';
 import { Dropdown } from '@themesberg/react-bootstrap';
@@ -6,8 +6,35 @@ import { Col, Row, Card, Form, Button, InputGroup, Breadcrumb , FormGroup } from
 import image from '../../assets/img/marker.svg';
 import { Routes } from "../../routes";
 import { Link, NavLink } from 'react-router-dom';
+import { useDispatch, useSelector } from "react-redux";
+import { getCampaignById } from '../../actions/CampaignActions';
 
-export const ViewCampaign = () => {
+export default (props) => {
+
+  const [inputs, setInputs] = useState({
+    name:"",
+    description:"",
+    start_date:"",
+    end_date:"",
+    client:"",
+    status:"",
+    lead_url:""
+   });
+
+   const id = props.match.params.id;
+   const dispatch = useDispatch();
+
+   useEffect(() => {
+    dispatch(getCampaignById(id)).then((data) => {
+      setInputs({name: data.name, description: data.description, 
+        start_date: data.start_date, 
+        end_date: data.end_date, 
+        client: data.client, 
+        status: data.status, 
+        lead_url: data.lead_url });
+    });
+  }, []);
+
 
     return (
       <>
@@ -42,32 +69,38 @@ export const ViewCampaign = () => {
           <Col md={6} className="mb-3">
           <Card.Text>             
              <Form.Group id="name">
-                <Form.Label>Name</Form.Label>               
+                <Form.Label>Name ; {inputs.name}</Form.Label>               
              </Form.Group>
            </Card.Text>
           <Card.Text>    
            <Form.Group id="description">
-                <Form.Label>Description</Form.Label>           
+                <Form.Label>Description </Form.Label>     
+                <Form.Label>{inputs.description}</Form.Label>      
             </Form.Group>
            </Card.Text>
            <Card.Text> 
               <Form.Group id="startdate">
-                <Form.Label>Start Date</Form.Label>        
+                <Form.Label>Start Date {inputs.start_date}</Form.Label>        
               </Form.Group>
            </Card.Text>
            <Card.Text> 
               <Form.Group id="enddate">
-                <Form.Label>End Date</Form.Label>        
+                <Form.Label>End Date {inputs.end_date}</Form.Label>        
               </Form.Group>
             </Card.Text>
             <Card.Text> 
               <Form.Group id="client">
-                <Form.Label>Client</Form.Label>        
+                <Form.Label>Client {inputs.client}</Form.Label>        
               </Form.Group>
             </Card.Text>
             <Card.Text> 
               <Form.Group id="status">
-                <Form.Label>Status</Form.Label>        
+                <Form.Label>Status {inputs.status}</Form.Label>        
+              </Form.Group>
+            </Card.Text>
+            <Card.Text> 
+              <Form.Group>
+                  <Form.Label>Url lead {inputs.lead_url}</Form.Label>
               </Form.Group>
             </Card.Text>
            </Col>
@@ -81,4 +114,3 @@ export const ViewCampaign = () => {
       </>
     )
 }
-export default ViewCampaign

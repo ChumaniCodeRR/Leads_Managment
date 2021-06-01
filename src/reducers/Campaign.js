@@ -13,23 +13,15 @@ import {
 import data from '../data/campaigns';
 
 const initialState = {
-    campaigns: data
+    campaigns: [],
+    campaignToEdit: [],
  };
 
  export default function campaigns(state = initialState, action ){
     const { type , payload } = action;
 
     switch (type) {
-        case Act_Deact_CAMPAIGNS_Success:
-            return {
-                ...state,
-                campaigns: payload,
-                success: true,
-            };
-        case Act_Deact_CAMPAIGNS_Failure:
-            return {
-                success: false,
-            };
+       
         case GET_CAMPAIGNS_SUCCESS:
           return {
             ...state,
@@ -69,6 +61,15 @@ const initialState = {
           return {
             success: false,
           };
+        case Act_Deact_CAMPAIGNS_Success:
+            return {
+                ...state,
+                campaigns: state.campaigns.map((index) => index === payload.id ? payload : campaigns)
+            };
+        case Act_Deact_CAMPAIGNS_Failure:
+            return {
+                success: false,
+            };
         default:
           return state;
       }

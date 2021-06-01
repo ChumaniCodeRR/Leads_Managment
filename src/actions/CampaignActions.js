@@ -62,15 +62,14 @@ export const deleteCampagins  = (id) => (dispatch) => {
   );
 };
 
-/*export const editCampagins = (id,data) => (dispatch) => {
+export const editCampagins = (id,data) => (dispatch) => {
     return CampaignService.UpdateCampaigns(id,data).then(
         (data) => {
         dispatch({
             type:EDIT_CAMPAIGNS_SUCCESS,
             payload: data,
         });
-    },
-    (error) => {
+    }, (error) => {
         dispatch({
             type:EDIT_CAMPAIGNS_FAILURE,
             error
@@ -79,10 +78,23 @@ export const deleteCampagins  = (id) => (dispatch) => {
   );
 };
 
-export const getCampaignById = (id) = () => {
+export const getCampaignById = (id) => () => {
     return CampaignService.returnCampaignById(id);
 };
 
-export const ActOrDeactCampaign = (id) = () => {
-    return CampaignService.actOrdectCampaigns(id);
-};*/
+export const ActOrDeactCampaign = (id,data) => (dispatch) => {
+    return CampaignService.actOrdectCampaigns(id,data).then(
+        (data) => {
+            dispatch({
+                type: Act_Deact_CAMPAIGNS_Success,
+                payload: data,
+            });
+        }, (error) => {
+            dispatch({
+                type: Act_Deact_CAMPAIGNS_Failure,
+                error
+            });
+        }
+    );
+};
+

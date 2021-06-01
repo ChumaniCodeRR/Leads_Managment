@@ -15,6 +15,8 @@ export const Routes = {
     ViewClient: { path: "/client/ViewClient/:id"},
     ClientUsers: { path: "/client-users/clientUsers/:id"},
     ViewClientUsers: { path: "/client-users/ViewclientUsers/:id"},
+    ViewCampaign : { path: "/campaigns/ViewCampaign/:id"},
+
 
     CreateAdmin: { path: "/admin/CreateAdmin"},
     CreateClient: { path: "/client/CreateClient"},
@@ -23,8 +25,8 @@ export const Routes = {
     
     Campaigns: { path: "/campaigns/Campaigns" },
     CreateCampaigns: { path : "/campaigns/CreateCampaigns" },
-    UpdateCampaigns: { path : "/campaigns/UpdateCampaigns"},
-    ViewCampaign : { path: "/campaigns/ViewCampaign"},
+    UpdateCampaigns: { path : "/campaigns/UpdateCampaigns/:id"},
+    
     Leads: { path: "/leads/Leads"},
     CreateLeads: { path: "/leads/CreateLeads"},
     UpdateLeads: { path: "/leads/UpdateLeads"},

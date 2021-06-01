@@ -5,18 +5,18 @@ import { faCheck, faTasks , faPlus , faCog, faHome, faSearch } from '@fortawesom
 import { faAmilia, faFigma, faPhabricator } from "@fortawesome/free-brands-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { Col, Row, Form, Button, ButtonGroup , Breadcrumb, InputGroup, Dropdown, Container } from '@themesberg/react-bootstrap';
-import { getAllCampaigns , deleteCampagins } from '../../actions/CampaignActions';
+import { getAllCampaigns, ActOrDeactCampaign , deleteCampagins } from '../../actions/CampaignActions';
 import Spinner from '../../helpers/spinner';
 import Swal from "sweetalert2";
 import { Nav, Card, Image, Table , ProgressBar, Pagination  } from '@themesberg/react-bootstrap';
 import { Link } from 'react-router-dom';
 import Documentation from "../../components/Documentation";
-
 import { Routes } from "../../routes";
-import campaigns from "../../data/campaigns";
+//import campaigns from "../../data/campaigns";
 import { TableRow } from "@material-ui/core";
+import TablePagination from "@material-ui/core/TablePagination";
 
-const total = campaigns.length;
+//const total = campaigns.length;
 
 const Campaigns = (props) => {
 
@@ -26,9 +26,8 @@ const Campaigns = (props) => {
     //  : status === "Canceled" ? "danger" : "primary";
 
     const { status } = props;  
-    const statusDetail = status === "Active" ? "success"
-    : "In-Progress" ? "warning"
-    : status === "In-Active" ? "danger" : "primary";
+    const statusDetail = status == 0 ? "success" : 1 ? "Active"
+    : status == 3 ? "danger" : "primary";
 
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -44,7 +43,7 @@ const Campaigns = (props) => {
     const campaignlist = useSelector((state) => state.campaigns);
     const [isloading, setisloading] = useState(false);
   
-    const[campaigns, setAdmins] = useState([]);
+    const[campaigns, setCampaigns] = useState([]);
     const[searchTerm, setSearchTerm] = useState("");
     const[searchResults, setSearchResults] = useState([]); 
   
@@ -52,24 +51,24 @@ const Campaigns = (props) => {
       setSearchTerm(e.target.value);
     }
   
-  /*useEffect(() => {
+  useEffect(() => {
       setisloading(true);
-      dispatch(getAllAdmins()).then(() => {
+      dispatch(getAllCampaigns()).then(() => {
         setisloading(false);
       });
-      setAdmins(adminlist.admins);
+      setCampaigns(campaignlist.campaigns);
       if (searchTerm === "") {
         return;
       } else {
         setSearchResults(
-          admins.filter((admin) =>
-            admin.name.toLowerCase().includes(searchTerm.toLowerCase())
+          campaigns.filter((campaign) =>
+            campaign.name.toLowerCase().includes(searchTerm.toLowerCase())
           )
         );
       }
-    }, [admins, searchTerm]);*/
+    }, [campaigns, searchTerm]);
     
-    // remove admin 
+    // remove campaign 
   
     function removeCampaign(index){
       dispatch(deleteCampagins(index)).then(
@@ -202,11 +201,11 @@ const Campaigns = (props) => {
           <Table hover responsive className="align-items-center table-flush">
           <thead>
             <tr>
+              <th className="border-top">Client</th>
               <th className="border-top">Name</th>
-              <th className="border-top">Description</th>
               <th className="border-top">Start Date </th>
               <th className="border-top">End Date</th>
-              <th className="border-top">Client</th>
+              
               <th className="border-top">Status</th>
               <th className="border-top">Action</th>
             </tr>
@@ -214,8 +213,8 @@ const Campaigns = (props) => {
           <tbody>
             {
             
-              //(searchTerm === "" ? adminlist.admins : searchResults)
-              campaignlist.campaigns.slice(
+              (searchTerm === "" ? campaignlist.campaigns : searchResults)
+              .slice(
                 page * rowsPerPage,
                 page * rowsPerPage + rowsPerPage
               )
@@ -223,10 +222,10 @@ const Campaigns = (props) => {
                 
                 <tr key={row.id}>           
                     <td className="mb-3">
-                      {row.name}
+                      {row.client}
                     </td>
                     <td sm={4} className="mb-3">
-                      {row.description}
+                      {row.name}
                     
                     </td>
                     <td className="fw-normal">
@@ -238,11 +237,8 @@ const Campaigns = (props) => {
                         </div>
                     </td>
                     <td className="fw-normal">
-                      {row.client_id}
-                    </td>
-                    <td className="fw-normal">
-                        <span className={`fw-normal text-${row.status === "Active" ? "success" : "In-Progress" ? "warning" : row.status === "In-Active" ? "danger" : "primary"}`}>
-                          {row.status}
+                        <span className={`fw-normal text-${row.status == 1 ? "success" : 2 ? "warning" : row.status == 3 ? "danger" : "primary"}`}>
+                          {statusDetail}
                         </span>
                     </td>
                     <td>
@@ -253,10 +249,10 @@ const Campaigns = (props) => {
                       </span>
                   </Dropdown.Toggle>
                   <Dropdown.Menu>
-                  <Dropdown.Item as={Link} to={Routes.ViewCampaign.path}>
+                  <Dropdown.Item as={Link} to={`/campaigns/ViewCampaign/${row.id}`}>
                    <FontAwesomeIcon icon={faEye} className="me-2" /> View Details
                   </Dropdown.Item>
-                  <Dropdown.Item as={Link} to={Routes.UpdateCampaigns.path}>
+                  <Dropdown.Item as={Link} to={`/campaigns/UpdateCampaigns/${row.id}`}>
                     <FontAwesomeIcon icon={faEdit} className="me-2" /> Edit           
                   </Dropdown.Item>
                   <Dropdown.Item className="text-danger" onClick={() => confirmButton()}>
@@ -279,23 +275,19 @@ const Campaigns = (props) => {
         )}
       </Card.Body>
       <Card.Footer className="px-3 border-0 d-lg-flex align-items-center justify-content-between">
-          <Nav>
-            <Pagination className="mb-2 mb-lg-0">
-              <Pagination.Prev>
-                Previous
-              </Pagination.Prev>
-              <Pagination.Item active>1</Pagination.Item>
-              <Pagination.Item>2</Pagination.Item>
-              <Pagination.Item>3</Pagination.Item>
-              <Pagination.Item>4</Pagination.Item>
-              <Pagination.Item>5</Pagination.Item>
-              <Pagination.Next>
-                Next
-              </Pagination.Next>
-            </Pagination>
-          </Nav>
+      <TablePagination
+            rowsPerPageOptions={[10,15,20,100, 1000, 2000]}
+            component="div"
+            count={
+              searchTerm === "" ? campaignlist.campaigns.length : searchResults.length
+            }
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onChangePage={handleChangePage}
+            onChangeRowsPerPage={handleChangeRowsPerPage}
+          />
           <small className="fw-bold">
-            Showing  <b> {total} </b> out of <b>25</b> entries
+            Showing  <b>  </b> out of {page} <b>25</b> entries
           </small>
         </Card.Footer>
     </Card>

@@ -1,4 +1,4 @@
-import React , { useState } from "react";
+import React, { useEffect, useState } from 'react';
 import Datetime from "react-datetime";
 import moment from "moment-timezone";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -6,15 +6,94 @@ import { faBoxOpen, faPhoneSquare ,faCartArrowDown, faChartPie, faChevronDown, f
 import { Col, Row, Card, Form, Button, InputGroup, FormGroup , Breadcrumb , Dropdown } from '@themesberg/react-bootstrap';
 import { ChoosePhotoWidget, ProfileCardWidget } from "../../components/Widgets";
 import { Routes } from "../../routes";
+import { createNewCampaign } from '../../actions/CampaignActions'
 import { Link, NavLink } from 'react-router-dom';
 import { faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
-
+import { getAllClients } from '../../actions/ClientActions';
+import { useForm } from "react-hook-form";
+import { useDispatch, useSelector } from 'react-redux';
+import Swal from "sweetalert2";
+import Checkbox from 'rc-checkbox';
+import Select  from 'react-select';
 
 const CreateNewCampaign = (props) => {
    
     //const [birthday, setBirthday] = useState("");
+    const [inputs, setInputs] = useState({
+      name:"",
+      description:"",
+      start_date:"",
+      end_date:"",
+      client_list_id: "",
+    })
+
+    const { register , handleSubmit, formState: { errors } }  = useForm();
+    const { name, description , start_date , end_date , client_list_id } = inputs;
+    const dispatch = useDispatch();
+    const clientlist = useSelector((state) => state.clients);
+
+    const [clients, setClients] = useState([]);
+
+    const id = props.match.params.id;
+
+    const [isloading, setisloading] = useState(false);
+    // set value for default selection
+     const [selectedValue, setSelectedValue] = useState(0);
+
+     const [selected, setSelected] = React.useState({});
+
     const [startdate, setStartDate] = useState("");
     const [enddate, setEndDate] = useState("");
+
+    const handleInputChange = e => {
+      const { name, checked } = e.target;
+      setSelected(selected => ({
+        ...selected,
+        [name]: checked
+      }));
+    };
+
+    const handleChange = e => {
+      setSelectedValue(e.value);
+     /// const index = e.target.selectedIndex;
+     // const el = e.target.childNodes[index]
+      //const option =  el.getAttribute('id');  
+    }
+
+    function onChange(e) {
+      const { name, value } = e.target;
+      setInputs((inputs) => ({ ...inputs, [name]: value }));
+    }
+
+    useEffect(() => {
+      setisloading(true);
+      dispatch(getAllClients()).then(() => {
+        setisloading(false);
+      });
+      setClients(clientlist.clients);
+    }, [clients]);
+
+    function onSubmit() {
+      dispatch(createNewCampaign(inputs))
+      .then(() => {
+         successMessage();
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+    }
+
+    function successMessage() {
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "Successfully Saved",
+        showConfirmButton: false,
+        timer: 1500,
+      }).then(() => {
+        //props.history.push(`/client-users/clientUsers/${id}`);
+      });
+    }
 
     return (
        <>
@@ -45,18 +124,18 @@ const CreateNewCampaign = (props) => {
            <Card border="light" className="bg-white shadow-sm mb-4">
             <Card.Body>
             <h5 className="mb-4">General information</h5>
-            <Form>
+            <Form onSubmit={handleSubmit(onSubmit)}>
             <Row>
             <Col md={6} className="mb-3">
               <Form.Group id="name">
                 <Form.Label>Name (*)</Form.Label>
-                <Form.Control required type="text" placeholder="Enter your first name" />
+                <Form.Control required type="text" value={name} placeholder="Enter Name..." onChange={onChange} name="name" />
               </Form.Group>
             </Col>
             <Col md={6} className="mb-3">
               <Form.Group id="description">
                 <Form.Label>Description (*)</Form.Label>
-                <Form.Control required type="email" placeholder="name@company.com" />
+                <Form.Control required type="text" value={description} onchange={onChange} name="description" placeholder="Enter Description..." />
               </Form.Group>
             </Col>
             </Row>
@@ -106,43 +185,21 @@ const CreateNewCampaign = (props) => {
               <Col sm={4} className="mb-3">
                 <Form.Group className="mb-2">
                   <Form.Label>Select Client</Form.Label>
-                  <Form.Select id="client" defaultValue="0">
-                   <option value="0">Client</option>
-                   <option value="MTN">MTN</option>
-                   <option value="Vodacom">Vodacom</option>
-                   <option value="Telkom">Telkom</option>
+                  <Form.Select id="client" onChange={handleChange}>
+                    
+                      {
+                       clientlist.clients.map(item =>
+                       <option id={item.id} value={item.id == client_list_id}>
+                          {item.name}
+                          {item.client_list_id}
+                       </option>
+                      ) 
+                      }
+
                   </Form.Select>
                 </Form.Group>
               </Col>
             </Row>
-            <Row>
-              <Col sm={4} className="mb-3">
-              <Form.Label>Status</Form.Label>
-              <Form.Group as={Row}>
-    
-      <Col sm={10}>
-        <Form.Check
-          type="radio"
-          label="Active"
-          name="formHorizontalRadios"
-          id="formHorizontalRadios1"
-        />
-        <Form.Check
-          type="radio"
-          label="In-progress"
-          name="formHorizontalRadios"
-          id="formHorizontalRadios2"
-        />
-        <Form.Check
-          type="radio"
-          label="Not-active"
-          name="formHorizontalRadios"
-          id="formHorizontalRadios3"
-        />
-      </Col>
-    </Form.Group>
-      </Col>
-     </Row>       
          <div className="mt-3">
             <Button variant="primary" type="submit">Create</Button>
          </div>
