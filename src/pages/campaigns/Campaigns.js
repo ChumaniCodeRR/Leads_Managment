@@ -255,15 +255,12 @@ const Campaigns = (props) => {
                   <Dropdown.Item as={Link} to={`/campaigns/UpdateCampaigns/${row.id}`}>
                     <FontAwesomeIcon icon={faEdit} className="me-2" /> Edit           
                   </Dropdown.Item>
-                  <Dropdown.Item className="text-danger" onClick={() => confirmButton()}>
+                  <Dropdown.Item className="text-danger" onClick={() => confirmButton(row.id)}>
                     <FontAwesomeIcon icon={faTrashAlt} className="me-2" /> Remove
                   </Dropdown.Item>
                   <Dropdown.Item onClick={() => confirmButtonAct()}>
                     <FontAwesomeIcon icon={faAmilia} className="me-2" /> Active/InActive
-                  </Dropdown.Item>
-                  <Dropdown.Item>
-                  <FontAwesomeIcon icon={faFigma} className="me-2" /> Campagin fields
-                  </Dropdown.Item>
+                  </Dropdown.Item>   
                   </Dropdown.Menu>
                   </Dropdown>
                     </td>

@@ -10,14 +10,100 @@ import { Link, NavLink } from 'react-router-dom';
 import { faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch, useSelector } from "react-redux";
 import {getCampaignById,editCampagins} from '../../actions/CampaignActions';
+import { getAllClients } from '../../actions/ClientActions';
 import Swal from "sweetalert2";
 
-export const UpdateCampaigns = () => {
+export default (props) => {
 
     //continue
 
-    const [startdate, setStartDate] = useState("");
+    const [startdate , setStartDate] = useState("");
     const [enddate, setEndDate] = useState("");
+
+    const [inputs, setInputs] = useState({
+      name:"",
+      description:"",
+      start_date: "",
+      end_date:"",
+      client_list_id :"",
+      status:"",
+      lead_url:""
+     });
+
+    const clientlist = useSelector((state) => state.clients);
+
+    const [clients, setClients] = useState([]);
+
+    const [isloading, setisloading] = useState(false);
+  
+    const [selectedValue, setSelectedValue] = useState(0);
+
+    const id = props.match.params.id;
+    const dispatch = useDispatch();
+
+    
+
+    const handleChange = e => {
+      setSelectedValue(e.value);
+     /// const index = e.target.selectedIndex;
+     // const el = e.target.childNodes[index]
+      //const option =  el.getAttribute('id');  
+    }
+
+    useEffect(() => {
+      setisloading(true);
+      dispatch(getAllClients()).then(() => {
+        setisloading(false);
+      });
+      setClients(clientlist.clients);
+    }, [clients]);
+
+    useEffect(() => {
+
+      setStartDate(inputs.start_date);
+      setEndDate(inputs.end_date);
+      setSelectedValue(inputs.client_list_id);
+
+      dispatch(getCampaignById(id)).then((data) => {
+        setInputs(
+          {name: data.name, 
+          description: data.description, 
+          start_date: data.start_date, 
+          end_date: data.end_date, 
+          client_list_id : data.client_list_id,
+          status : data.status,
+          lead_url: data.lead_url});
+      });
+    }, [inputs.start_date, inputs.end_date, inputs.client_list_id]);
+
+    function onChange(e){
+      const {name, value } = e.target;
+      setInputs((inputs) => ({ ...inputs, [name]: value }));
+    }
+
+    function onSubmit(e){
+      e.preventDefault()
+      dispatch(editCampagins(id,inputs))
+      .then(() => {
+        successMessage();
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+    }
+
+    function successMessage() {
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "Successfully Updated",
+        showConfirmButton: false,
+        timer: 1500,
+      }).then(() => {
+        props.history.push("/campaigns/Campaigns");
+      });
+     }
+
 
     return (
         <>
@@ -48,13 +134,13 @@ export const UpdateCampaigns = () => {
            <Col md={6} className="mb-3">
              <Form.Group id="Name">
                 <Form.Label>Name</Form.Label>
-                <Form.Control required type="text" placeholder="Enter your name" />
+                <Form.Control type="text" value={inputs.name} name="name" onChange={onChange} placeholder="Enter your name" />
               </Form.Group>
            </Col>
            <Col md={6} className="mb-3">
            <Form.Group id="description">
                 <Form.Label>Description</Form.Label>
-                <Form.Control required type="text" placeholder="Enter your description" />
+                <Form.Control type="text" value={inputs.description} name="description" onchange={onChange} placeholder="Enter your description" />
               </Form.Group>
            </Col>
          </Row>
@@ -104,32 +190,22 @@ export const UpdateCampaigns = () => {
           <Col md={6} className="mb-3">
               <Form.Group id="client">
                 <Form.Label>Client</Form.Label>
-                <Form.Control required type="text" placeholder="client" />
+                <Form.Select id="client" onChange={handleChange}>
+                    
+                    {
+                     clientlist.clients.map(item =>
+                     <option id={item.id} value={item.client_list_id }>
+                        {item.name}
+                        
+                     </option>
+                    ) 
+                    }
+
+                </Form.Select>
               </Form.Group>
             </Col>     
           </Row>
-          <Row>
-          <Col sm={10}>
-        <Form.Check
-          type="radio"
-          label="Active"
-          name="formHorizontalRadios"
-          id="formHorizontalRadios1"
-        />
-        <Form.Check
-          type="radio"
-          label="In-progress"
-          name="formHorizontalRadios"
-          id="formHorizontalRadios2"
-        />
-        <Form.Check
-          type="radio"
-          label="Not-active"
-          name="formHorizontalRadios"
-          id="formHorizontalRadios3"
-        />
-      </Col>
-          </Row>
+          
           <div className="mt-3">
             <Button variant="primary" type="submit">Save Changes</Button>
           </div>
@@ -142,4 +218,3 @@ export const UpdateCampaigns = () => {
         </>
     )
 }
-export default UpdateCampaigns

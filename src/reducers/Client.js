@@ -1,5 +1,11 @@
-import { GET_CLIENT_SUCCESS , GET_CLIENT_FAILURE , ADD_CLIENT_SUCCESS, ADD_CLIENT_FAILURE, EDIT_CLIENT_SUCCESS, EDIT_CLIENT_FAILURE, DELETE_CLIENT_SUCCESS
-    , DELETE_CLIENT_FAILURE, Act_Deact_CLIENT_Success, Act_Deact_CLIENT_Failure } from '../actions/type';
+import { GET_CLIENT_SUCCESS , 
+       GET_CLIENT_FAILURE , 
+       ADD_CLIENT_SUCCESS,
+        ADD_CLIENT_FAILURE, 
+        EDIT_CLIENT_SUCCESS, 
+        EDIT_CLIENT_FAILURE, 
+        DELETE_CLIENT_SUCCESS,
+    Act_Deact_CLIENT_Success,RETRIVE_CLIENT_BY_ID_SUCESSS } from '../actions/type';
     import data from '../data/clients';
 
     const initialState = {

@@ -1,82 +1,95 @@
 import ClientUsersService from '../services/ClientUsersService';
-import { GET_CLIENT_USERS_SUCCESS , GET_CLIENT_USERS_FAILURE , ADD_CLIENT_USERS_SUCCESS, ADD_CLIENT_USERS_FAILURE, EDIT_CLIENT_USERS_SUCCESS, EDIT_CLIENT_USERS_FAILURE, DELETE_CLIENT_USERS_SUCCESS
-    , DELETE_CLIENT_USERS_FAILURE, Act_Deact_CLIENT_USERS_Success, Act_Deact_CLIENT_USERS_Failure } from '../actions/type';
+import { GET_CLIENT_USERS_SUCCESS ,
+        ADD_CLIENT_USERS_SUCCESS,
+        EDIT_CLIENT_USERS_SUCCESS,
+        DELETE_CLIENT_USERS_SUCCESS, 
+        Act_Deact_CLIENT_USERS_Success, RETRIVE_CLIENTUSER_BY_ID_SUCESSS} from '../actions/type';
 
-    export const getAllClientUsers = (id) => (dispatch) => {
-        return ClientUsersService.returnAllClientUsers(id).then((data) => {
-            dispatch({
-                type: GET_CLIENT_USERS_SUCCESS,
-                payload: data,
-            })
-        }, (error) => {
-            dispatch({
-                type: GET_CLIENT_USERS_FAILURE,
-                error
-            })
-        })
+    export const getAllClientUsers = () => async (dispatch) => {
+            try {
+               const res = await ClientUsersService.returnAllClientUsers();
+               dispatch({
+                   type: GET_CLIENT_USERS_SUCCESS,
+                   payload: res.data,
+               })
+            } catch (err){
+                console.log(err);
+            }
     }
+
+
 
     /*export const getAllClientUsers = (id) => () => {
         return ClientUsersService.returnAllClientUsers(id);
     }*/
 
-    export const createNewClientUsers = (data) => (dispatch) => {
-        return ClientUsersService.createClientUsers(data).then((data) => {
-            dispatch({
-                type: ADD_CLIENT_USERS_SUCCESS,
-                payload: data,
-            })
-        },(error) => {
-            dispatch({
-                type: ADD_CLIENT_USERS_FAILURE,
-                error
-            })
-        })
-    }
-
-    export const deleteClientUsers  = (id) => (dispatch) => {
-        return ClientUsersService.removeClientUsers(id).then((data) => {
-            dispatch({
-                type :DELETE_CLIENT_USERS_SUCCESS,
-                payload: data,
-            })
-        },(error) => {
-            dispatch({
-                type:DELETE_CLIENT_USERS_FAILURE,
-                error
-            })
-        })
-    }
-
+    export const createNewClientUsers = (data) => async (dispatch) => {
     
-    export const editClientUsers = (id,data) => (dispatch) => {
-        return ClientUsersService.UpdateClientUsers(id,data).then((data) => {
-            dispatch({
-                type:EDIT_CLIENT_USERS_SUCCESS,
-                payload: data,
-            })
-        },(error) => {
-            dispatch({
-                type:EDIT_CLIENT_USERS_FAILURE,
-                error
-            })
-        })
+        try {
+         const res = await ClientUsersService.createClientUsers(data);
+          dispatch({
+            type: ADD_CLIENT_USERS_SUCCESS,
+            payload: res.data,
+          });
+          return Promise.resolve(res.data);
+        } catch (err) {
+          console.log(err);
+        }
     }
 
-    export const getClientUsersById = (id) => () => {
-        return ClientUsersService.returnClientUsersById(id)
+    export const deleteClientUsers = (id) => async (dispatch) => {
+        try {
+          const res = await ClientUsersService.removeClientUsers(id);
+          dispatch({
+            type :DELETE_CLIENT_USERS_SUCCESS,
+            payload: res.data,
+          });
+    
+        } catch (err) {
+          console.log(err);
+        }
     }
 
-    export const ActOrDeactClientUsers = (id,data) => (dispatch) => {
-        return ClientUsersService.actOrdectClientUsers(id,data).then((data) => {
+    export const editClientUsers = (id,data) => async (dispatch) => {
+        try {
+            const res = await ClientUsersService.UpdateClientUsers(id,data);
+           dispatch({
+            type:EDIT_CLIENT_USERS_SUCCESS,
+            payload: data,
+           });
+    
+           return Promise.resolve(res.data);
+    
+        } catch (err) {
+            return Promise.reject(err);
+        }
+    }
+
+    export const getClientUsersById = (id) => async (dispatch) => {
+        try {
+            const res = await ClientUsersService.returnClientUsersById(id);
+    
             dispatch({
+                type: RETRIVE_CLIENTUSER_BY_ID_SUCESSS,
+                payload: res.data,
+            });
+        }
+        catch (err) {
+          console.log(err);
+        }
+    } 
+
+    export const ActOrDeactClientUsers = (id,data) => async (dispatch) => {
+        try {
+            const res = await ClientUsersService.actOrdectClientUsers(id,data);
+             dispatch({
                 type: Act_Deact_CLIENT_USERS_Success,
                 payload: data,
-            })
-        },(error) => {
-           dispatch({
-               type: Act_Deact_CLIENT_USERS_Failure,
-               error
-           })
-        })
+               });
+    
+               return Promise.resolve(res.data);
+    
+            } catch (err) {
+                return Promise.reject(err);
+            }
     }

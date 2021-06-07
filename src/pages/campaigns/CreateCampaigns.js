@@ -38,9 +38,9 @@ const CreateNewCampaign = (props) => {
 
     const [isloading, setisloading] = useState(false);
     // set value for default selection
-     const [selectedValue, setSelectedValue] = useState(0);
+    const [selectedValue, setSelectedValue] = useState(0);
 
-     const [selected, setSelected] = React.useState({});
+    const [selected, setSelected] = React.useState({});
 
     const [startdate, setStartDate] = useState("");
     const [enddate, setEndDate] = useState("");
@@ -53,11 +53,13 @@ const CreateNewCampaign = (props) => {
       }));
     };
 
+    // check for Id selected in client list continue 
     const handleChange = e => {
+
       setSelectedValue(e.value);
-     /// const index = e.target.selectedIndex;
-     // const el = e.target.childNodes[index]
-      //const option =  el.getAttribute('id');  
+      const index = e.target.selectedIndex;
+      const el = e.target.childNodes[index]
+      const option =  el.getAttribute('id');  
     }
 
     function onChange(e) {
@@ -71,6 +73,10 @@ const CreateNewCampaign = (props) => {
         setisloading(false);
       });
       setClients(clientlist.clients);
+
+      setStartDate(inputs.start_date);
+      setEndDate(inputs.end_date);
+      
     }, [clients]);
 
     function onSubmit() {
@@ -129,73 +135,79 @@ const CreateNewCampaign = (props) => {
             <Col md={6} className="mb-3">
               <Form.Group id="name">
                 <Form.Label>Name (*)</Form.Label>
-                <Form.Control required type="text" value={name} placeholder="Enter Name..." onChange={onChange} name="name" />
+                <Form.Control 
+                required 
+                type="text" 
+                value={name} 
+                placeholder="Enter Name..." 
+                onChange={onChange} 
+                name="name" />
               </Form.Group>
+              {errors.name && (
+                <div className="text-danger">This field is required</div>
+              )}
             </Col>
             <Col md={6} className="mb-3">
               <Form.Group id="description">
                 <Form.Label>Description (*)</Form.Label>
-                <Form.Control required type="text" value={description} onchange={onChange} name="description" placeholder="Enter Description..." />
+                <Form.Control 
+                required 
+                type="text" 
+                value={description} 
+                placeholder="Enter Description..." 
+                onChange={onChange} name="description" />
               </Form.Group>
+              {errors.description && (
+                <div className="text-danger">This field is required</div>
+              )}
             </Col>
             </Row>
             <Row>
             <Col md={6} className="mb-3">
             <Form.Group id="startdate">
                 <Form.Label>Start-Date(*)</Form.Label>
-                <Datetime
-                  timeFormat={false}
-                  onChange={setStartDate}
-                  renderInput={(props, openCalendar) => (
-                    <InputGroup>
-                      <InputGroup.Text><FontAwesomeIcon icon={faCalendarAlt} /></InputGroup.Text>
-                      <Form.Control
-                        required
-                        type="text"
-                        value={startdate ? moment(startdate).format("MM/DD/YYYY") : ""}
-                        placeholder="mm/dd/yyyy"
-                        onFocus={openCalendar}
-                        onChange={() => { }} />
-                    </InputGroup>
-                  )} />
+                <input
+                  type="date"
+                  timeFormat={true}
+                  name="start_date"
+                  onChange={onChange}
+                  className="form-control"
+                  value={start_date}
+                />
               </Form.Group>
+              {errors.start_date && (
+                <div className="text-danger">This field is required</div>
+              )}
              </Col>
              <Col md={6} className="mb-3">
               <Form.Group id="enddate">
                 <Form.Label>End-Date(*)</Form.Label>
-                <Datetime
-                  timeFormat={false}
-                  onChange={setEndDate}
-                  renderInput={(props, openCalendar) => (
-                    <InputGroup>
-                      <InputGroup.Text><FontAwesomeIcon icon={faCalendarAlt} /></InputGroup.Text>
-                      <Form.Control
-                        required
-                        type="text"
-                        value={enddate ? moment(enddate).format("MM/DD/YYYY") : ""}
-                        placeholder="mm/dd/yyyy"
-                        onFocus={openCalendar}
-                        onChange={() => { }} />
-                    </InputGroup>
-                  )} />
+                <input
+                  type="date"
+                  timeFormat={true}
+                  name="end_date"
+                  onChange={onChange}
+                  className="form-control"
+                  value={end_date}
+                 />
               </Form.Group>
+              {errors.end_date && (
+                <div className="text-danger">This field is required</div>
+              )}
             </Col>
             </Row>
             <Row>
               <Col sm={4} className="mb-3">
                 <Form.Group className="mb-2">
                   <Form.Label>Select Client</Form.Label>
-                  <Form.Select id="client" onChange={handleChange}>
-                    
+                  <Form.Select onChange={handleChange}>
                       {
-                       clientlist.clients.map(item =>
-                       <option id={item.id} value={item.id == client_list_id}>
+                        clientlist.clients.map(item =>
+                         <option value={item.client_list_id}>
                           {item.name}
-                          {item.client_list_id}
-                       </option>
-                      ) 
+                         </option>
+                        ) 
                       }
-
                   </Form.Select>
                 </Form.Group>
               </Col>

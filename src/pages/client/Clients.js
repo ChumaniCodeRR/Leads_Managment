@@ -185,6 +185,7 @@ const Clients = () => {
           <Table hover className="user-table align-items-center">
           <thead>
             <tr>
+              <th className="border-top">Id</th>
               <th className="border-top">Name</th>
               <th className="border-top">Email</th>
               <th className="border-top">Contact </th>
@@ -200,7 +201,10 @@ const Clients = () => {
                 page * rowsPerPage + rowsPerPage
               )
               .map((row) => (
-                <tr key={row.id}>           
+                <tr key={row.id}> 
+                    <td>
+                      {row.id}
+                    </td>          
                     <td>
                       {row.name}
                     </td>

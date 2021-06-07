@@ -1,100 +1,100 @@
 import CampaignService from '../services/CampaignService';
 import {
 GET_CAMPAIGNS_SUCCESS,
-GET_CAMPAIGNS_FAILURE ,
 ADD_CAMPAIGNS_SUCCESS,
-ADD_CAMPAIGNS_FAILURE ,
 EDIT_CAMPAIGNS_SUCCESS ,
-EDIT_CAMPAIGNS_FAILURE,
 DELETE_CAMPAIGNS_SUCCESS ,
-DELETE_CAMPAIGNS_FAILURE ,
 Act_Deact_CAMPAIGNS_Success ,
-Act_Deact_CAMPAIGNS_Failure 
+RETRIVE_CAMPAIGN_BY_ID_SUCESSS
 } from './type';
 
-export const getAllCampaigns = () => (dispatch) => {
-    return CampaignService.returnAllCampaigns().then(
-        (data) => {
+
+export const getAllCampaigns = () => async (dispatch) => {
+    try {
+       const res = await  CampaignService.returnAllCampaigns();
+       dispatch({
+           type: GET_CAMPAIGNS_SUCCESS,
+           payload: res.data,
+       })
+    } catch (err){
+        console.log(err);
+    }
+}
+
+
+export const createNewCampaign = (data) => async (dispatch) => {
+    
+    try {
+     const res = await CampaignService.createCampaigns(data);
+      dispatch({
+        type: ADD_CAMPAIGNS_SUCCESS,
+        payload: res.data,
+      });
+      return Promise.resolve(res.data);
+    } catch (err) {
+      console.log(err);
+    }
+}
+
+
+export const deleteCampagins = (id) => async (dispatch) => {
+    try {
+      const res = await CampaignService.removeCampaigns(id);
+      dispatch({
+        type :DELETE_CAMPAIGNS_SUCCESS,
+        payload: res.data,
+      });
+
+    } catch (err) {
+      console.log(err);
+    }
+}
+
+export const editCampagins = (id,data) => async (dispatch) => {
+
+    try {
+       const res = await CampaignService.UpdateCampaigns(id,data);
+
+       dispatch({
+        type:EDIT_CAMPAIGNS_SUCCESS,
+        payload: data,
+       });
+
+       return Promise.resolve(res.data);
+
+    } catch (err) {
+        return Promise.reject(err);
+    }
+}
+
+export const getCampaignById = (id) => async (dispatch) => {
+    try {
+        const res = await CampaignService.returnCampaignById(id);
+
         dispatch({
-            type: GET_CAMPAIGNS_SUCCESS,
-            payload: data,
-        });
-    }, (error) => {
-        dispatch({
-            type: GET_CAMPAIGNS_FAILURE,
-            error
+            type: RETRIVE_CAMPAIGN_BY_ID_SUCESSS,
+            payload: res.data,
         });
     }
-  );
-};
-
-export const createNewCampaign = (data) => (dispatch) => {
-    return CampaignService.createCampaigns(data).then(
-        (data) => {
-        dispatch({
-            type: ADD_CAMPAIGNS_SUCCESS,
-            payload: data,
-        });
-    },
-    (error) => {
-        dispatch({
-            type: ADD_CAMPAIGNS_FAILURE,
-            error
-        });
+    catch (err) {
+      console.log(err);
     }
-  );
-};
+} 
 
-export const deleteCampagins  = (id) => (dispatch) => {
-    return CampaignService.removeCampaigns(id).then(
-        (data) => {
-        dispatch({
-            type :DELETE_CAMPAIGNS_SUCCESS,
+export const ActOrDeactCampaign = (id,data) => async (dispatch) => {
+    try {
+        const res = await CampaignService.actOrdectCampaigns(id,data);
+         dispatch({
+            type: Act_Deact_CAMPAIGNS_Success,
             payload: data,
-        });
-    },
-    (error) => {
-        dispatch({
-            type:DELETE_CAMPAIGNS_FAILURE,
-            error
-        });
-    }
-  );
-};
+           });
 
-export const editCampagins = (id,data) => (dispatch) => {
-    return CampaignService.UpdateCampaigns(id,data).then(
-        (data) => {
-        dispatch({
-            type:EDIT_CAMPAIGNS_SUCCESS,
-            payload: data,
-        });
-    }, (error) => {
-        dispatch({
-            type:EDIT_CAMPAIGNS_FAILURE,
-            error
-        });
-    }
-  );
-};
+           return Promise.resolve(res.data);
 
-export const getCampaignById = (id) => () => {
-    return CampaignService.returnCampaignById(id);
-};
-
-export const ActOrDeactCampaign = (id,data) => (dispatch) => {
-    return CampaignService.actOrdectCampaigns(id,data).then(
-        (data) => {
-            dispatch({
-                type: Act_Deact_CAMPAIGNS_Success,
-                payload: data,
-            });
-        }, (error) => {
-            dispatch({
-                type: Act_Deact_CAMPAIGNS_Failure,
-                error
-            });
+        } catch (err) {
+            return Promise.reject(err);
         }
-    );
-};
+}
+
+
 

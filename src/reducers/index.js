@@ -1,4 +1,4 @@
-import {combineReducers} from 'redux'
+import { combineReducers } from 'redux'
 import authentication from './authentication';
 import admins from './Admin';
 import clients from './Client';
