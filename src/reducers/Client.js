@@ -1,74 +1,53 @@
 import { GET_CLIENT_SUCCESS , 
-       GET_CLIENT_FAILURE , 
        ADD_CLIENT_SUCCESS,
-        ADD_CLIENT_FAILURE, 
         EDIT_CLIENT_SUCCESS, 
-        EDIT_CLIENT_FAILURE, 
         DELETE_CLIENT_SUCCESS,
-    Act_Deact_CLIENT_Success,RETRIVE_CLIENT_BY_ID_SUCESSS } from '../actions/type';
-    import data from '../data/clients';
+    Act_Deact_CLIENT_Success,
+    RETRIVE_CLIENT_BY_ID_SUCESSS } from '../actions/type';
 
-    const initialState = {
-        clients: [],
-        clientToEdit: [],
-    };
+    const INITIAL_STATE = [];
 
-    export default function clients(state = initialState , action ) {
-        const { type , payload } = action;
+    function clientsReducer(clients = INITIAL_STATE, action ) {
 
+      const {type, payload} = action;
+    
         switch (type) {
-            case Act_Deact_CLIENT_Success:
+          
+          case ADD_CLIENT_SUCCESS:
+            return [...clients,payload];
+    
+          case GET_CLIENT_SUCCESS:
+            return payload;
+          
+          case EDIT_CLIENT_SUCCESS:
+            return clients.map((client) => {
+              if(client.id === payload.id){
                 return {
-                    ...state,
-                    clients: payload,
-                    success: true,
+                  ...client,
+                  ...payload,
                 };
-            case Act_Deact_CLIENT_Failure:
-                return {
-                    success: false,
-                };
-            case GET_CLIENT_SUCCESS:
-              return {
-                ...state,
-                clients: payload,
-                success: true,
-              };
-            case GET_CLIENT_FAILURE:
-              return {
-                success: false,
-              };
-            case ADD_CLIENT_SUCCESS:
-              return {
-                ...state,
-                clients: [...state.clients, payload],
-                success: true,
-              };
-            case ADD_CLIENT_FAILURE:
-              return {
-                success: false,
-              };
-        
-            case DELETE_CLIENT_SUCCESS:
-              return {
-                clients: [...state.clients.filter((data ) => data !== payload)],
-                success: true,
-              };
-            case DELETE_CLIENT_FAILURE:
-              return {
-                success: false,
-              };
-            case EDIT_CLIENT_SUCCESS:
-              return {
-                ...state,
-                clients: state.clients.map((index) =>
-                  index === payload.id ? payload : clients
-                ),
-              };
-            case EDIT_CLIENT_FAILURE:
-              return {
-                success: false,
-              };
+              } else {
+                  return client;
+                }
+            });
+          
+          case DELETE_CLIENT_SUCCESS: 
+            return clients.filter(({ id }) => id !== payload.id);
+    
+          case RETRIVE_CLIENT_BY_ID_SUCESSS:
+            return payload;
+    
+          case Act_Deact_CLIENT_Success:
+            return clients.map((client) => {
+              if(client.id === payload.id){
+                return { ...client, ...payload };
+              } else {
+                return client;
+              }
+            });
             default:
-              return state;
+              return clients;
           }
     }
+    
+export default clientsReducer;

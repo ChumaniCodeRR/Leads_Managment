@@ -1,65 +1,55 @@
 import {
 GET_ALL_LEADS_SUCCESS,
-GET_ALL_LEADS_FAILURE,
 ADD_LEADS_SUCCESS ,
-ADD_LEADS_FAILURE ,
 EDIT_LEADS_SUCCESS ,
-EDIT_LEADS_FAILURE , 
 DELETE_LEADS_SUCCESS ,
-DELETE_LEADS_FAILURE ,
 IMPORT_LEADS_SUCCESS ,
-IMPORT_LEADS_FAILURE } from '../actions/type';
-import data from '../data/leads';
+RETRIVE_LEADS_BY_ID_SUCESSS,LEADS_STATUS_SUCCESS } from '../actions/type';
 
-const initialState = {
-    leads: data
- };
+const INITIAL_STATE = [];
+
+
+function leadsReducer(leads = INITIAL_STATE, action ) {
+
+  const {type, payload} = action;
+
+    switch (type) {
+      
+      case ADD_LEADS_SUCCESS:
+        return [...leads,payload];
+
+      case GET_ALL_LEADS_SUCCESS:
+        return payload;
+      
+      case EDIT_LEADS_SUCCESS:
+        return leads.map((lead) => {
+          if(lead.id === payload.id){
+            return {
+              ...lead,
+              ...payload,
+            };
+          } else {
+              return lead;
+            }
+        });
+
+      case DELETE_LEADS_SUCCESS: 
+        return leads.filter(({ id }) => id !== payload.id);
+
+      case RETRIVE_LEADS_BY_ID_SUCESSS:
+        return payload;
+
+      case LEADS_STATUS_SUCCESS:
+        return payload;
+    
+        default:
+          return clients;
+      }
+}
+
+export default leadsReducer;
+
+
+
+
  
- export default function leads(state = initialState, action ){
-     const { type , payload } = action;
- 
-     switch (type) {
-         
-         case GET_ALL_LEADS_SUCCESS:
-           return {
-             ...state,
-             leads: payload,
-             success: true,
-           };
-         case GET_ALL_LEADS_FAILURE:
-           return {
-             success: false,
-           };
-         case ADD_LEADS_SUCCESS:
-           return {
-             ...state,
-             leads: [...state.leads, payload],
-             success: true,
-           };
-         case ADD_LEADS_FAILURE:
-           return {
-             success: false,
-           };
-     
-         case DELETE_LEADS_SUCCESS:
-           return {
-             leads: [...state.leads.filter((data) => data !== payload)],
-             success: true,
-           };
-         case DELETE_LEADS_FAILURE:
-           return {
-             success: false,
-           };
-         case EDIT_LEADS_SUCCESS:
-           return {
-             ...state,
-             leads: state.leads.map((index) => index === payload.id ? payload : leads)
-           }
-         case EDIT_LEADS_FAILURE:
-           return {
-             success: false,
-           };
-         default:
-           return state;
-       }
- }
