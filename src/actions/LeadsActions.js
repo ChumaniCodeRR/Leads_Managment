@@ -3,77 +3,82 @@ import {
     GET_ALL_LEADS_SUCCESS,
     RETRIVE_LEADS_BY_ID_SUCESSS,
     ADD_LEADS_SUCCESS ,
-    ADD_LEADS_FAILURE ,
     EDIT_LEADS_SUCCESS ,
     DELETE_LEADS_SUCCESS ,
-    LEADS_STATUS_SUCCESS
+    GET_ALL_LEADS_FAILURE,
+    LEADS_STATUS_SUCCESS,
+    ADD_LEADS_FAILURE,
+    EDIT_LEADS_FAILURE,
+    DELETE_LEADS_FAILURE,
+    LEADS_STATUS_FAILURE
     } from '../actions/type';
 
-
     export const getLeadsStatus = () => async (dispatch) => {
-        try {
-           const res = await LeadsService.returnLeadsStatus();
-           dispatch({
-               type: LEADS_STATUS_SUCCESS,
-               payload: res.data,
-           })
-        } catch (err){
-            console.log(err);
-        }
+      return await LeadsService.returnLeadsStatus().then((data) => {
+       dispatch(success(data))
+     },(error) => {
+        dispatch(failure(error).toString());
+     })
+     function success(data) {
+         return { type:LEADS_STATUS_SUCCESS, payload: data}
      }
-
+     function failure(error){
+         return {  type:LEADS_STATUS_FAILURE, error }
+     }
+    }
 
     export const getAllLeads = (id) => async (dispatch) => {
-        try {
-           const res = await LeadsService.returnAllCampaignLeads(id);
-           dispatch({
-               type: GET_ALL_LEADS_SUCCESS,
-               payload: res.data,
-           })
-        } catch (err){
-            console.log(err);
-        }
+       return await LeadsService.returnAllCampaignLeads(id).then((data) => {
+        dispatch(success(data))
+      },(error) => {
+         dispatch(failure(error).toString());
+      })
+      function success(data) {
+        return { type:GET_ALL_LEADS_SUCCESS, payload: data}
+      }
+      function failure(error){
+        return {  type:GET_ALL_LEADS_FAILURE, error }
+      }
     }
 
     export const createNewLead = (id,data) => async (dispatch) => {
-    
-        try {
-         const res = await LeadsService.createLeads(id,data);
-          dispatch({
-            type: ADD_LEADS_SUCCESS,
-            payload: res.data,
-          });
-          return Promise.resolve(res.data);
-        } catch (err) {
-          console.log(err);
-        }
+      return await  LeadsService.createLeads(id,data).then((data) => {
+          dispatch(success(data))
+      }, (error) => {
+          dispatch(failure(error).toString());
+      })
+      function success(data){
+        return { type: ADD_LEADS_SUCCESS, payload:data}
+      }
+      function failure(error){
+          return { type: ADD_LEADS_FAILURE, error}
+      }
     }
-
+  
     export const deleteLead = (id) => async (dispatch) => {
-        try {
-          const res = await LeadsService.removeLeads(id);
-          dispatch({
-            type :DELETE_LEADS_SUCCESS,
-            payload: res.data,
-          });
-    
-        } catch (err) {
-          console.log(err);
-        }
+      return await LeadsService.removeLeads(id).then((data) => {
+          dispatch(success(data))
+      },(error) => {
+          dispatch(failure(error).toString());
+      })
+      function success(data){
+          return { type:DELETE_LEADS_SUCCESS, payload:data}
+      }
+      function failure(error) {
+          return { type:DELETE_LEADS_FAILURE, error}
+      }
     }
 
-    
     export const editLead = (id,data) => async (dispatch) => {
-        try {
-            const res = await LeadsService.UpdateLeads(id,data);
-           dispatch({
-            type:EDIT_LEADS_SUCCESS,
-            payload: data,
-           });
-    
-           return Promise.resolve(res.data);
-    
-        } catch (err) {
-            return Promise.reject(err);
-        }
+      return await LeadsService.UpdateLeads(id,data).then((data) => {
+         dispatch(success(data));
+      },(error) => {
+          dispatch(failure(error).toString());
+      }) 
+      function success(data){
+          return { type: EDIT_LEADS_SUCCESS, payload: data }
+      }  
+      function failure(error){
+          return { type: EDIT_LEADS_FAILURE, error }
+      }
     }

@@ -5,76 +5,85 @@ ADD_CAMPAIGNS_SUCCESS,
 EDIT_CAMPAIGNS_SUCCESS ,
 DELETE_CAMPAIGNS_SUCCESS ,
 Act_Deact_CAMPAIGNS_Success ,
-RETRIVE_CAMPAIGN_BY_ID_SUCESSS
+Act_Deact_CAMPAIGNS_Failure,
+RETRIVE_CAMPAIGN_BY_ID_SUCESSS,
+DELETE_CAMPAIGNS_FAILURE,
+EDIT_CAMPAIGNS_FAILURE,
+ADD_CAMPAIGNS_FAILURE,
+GET_CAMPAIGNS_FAILURE
 } from './type';
 
 
-export const getAllCampaigns = () => async (dispatch) => {
-    try {
-       const res = await  CampaignService.returnAllCampaigns();
-       dispatch({
-           type: GET_CAMPAIGNS_SUCCESS,
-           payload: res.data,
-       })
-    } catch (err){
-        console.log(err);
-    }
-}
+export const getAllCampaigns = () => (dispatch) => {
+  
+  return CampaignService.returnAllCampaigns().then((data) => {
+   dispatch(success(data))
+ },(error) => {
+    dispatch(failure(error).toString());
+ })
 
+ function success(data) {
+     return { type:GET_CAMPAIGNS_SUCCESS, payload: data}
+ }
+
+ function failure(error){
+     return {  type:GET_CAMPAIGNS_FAILURE, error }
+ }
+}
 
 export const createNewCampaign = (data) => async (dispatch) => {
     
-    try {
-     const res = await CampaignService.createCampaigns(data);
-      dispatch({
-        type: ADD_CAMPAIGNS_SUCCESS,
-        payload: res.data,
-      });
-      return Promise.resolve(res.data);
-    } catch (err) {
-      console.log(err);
-    }
+  return CampaignService.createCampaigns(data).then((data) => {
+      dispatch(success(data))
+  }, (error) => {
+      dispatch(failure(error).toString());
+  })
+
+  function success(data){
+    return { type: ADD_CAMPAIGNS_SUCCESS, payload:data}
+  }
+
+  function failure(error){
+      return { type: ADD_CAMPAIGNS_FAILURE, error}
+  }
 }
 
 
 export const deleteCampagins = (id) => async (dispatch) => {
-    try {
-      const res = await CampaignService.removeCampaigns(id);
-      dispatch({
-        type :DELETE_CAMPAIGNS_SUCCESS,
-        payload: res.data,
-      });
+   
+  return CampaignService.removeCampaigns(id).then((data) => {
+      dispatch(success(data))
+  },(error) => {
+      dispatch(failure(error).toString());
+  })
 
-    } catch (err) {
-      console.log(err);
-    }
+  function success(data){
+      return { type:DELETE_CAMPAIGNS_SUCCESS, payload:data}
+  }
+  function failure(error) {
+      return { type:DELETE_CAMPAIGNS_FAILURE , error}
+  }
 }
+
 
 export const editCampagins = (id,data) => async (dispatch) => {
 
-    try {
-       const res = await CampaignService.UpdateCampaigns(id,data);
-
-       dispatch({
-        type:EDIT_CAMPAIGNS_SUCCESS,
-        payload: data,
-       });
-
-       return Promise.resolve(res.data);
-
-    } catch (err) {
-        return Promise.reject(err);
-    }
+  return CampaignService.UpdateCampaigns(id,data).then((data) => {
+      dispatch({
+          type:EDIT_CAMPAIGNS_SUCCESS,
+          payload: data,
+      })
+  },(error) => {
+      dispatch({
+          type:EDIT_CAMPAIGNS_FAILURE,
+          error
+      })
+  })
 }
 
 export const getCampaignById = (id) => async (dispatch) => {
     try {
-        const res = await CampaignService.returnCampaignById(id);
-
-        dispatch({
-            type: RETRIVE_CAMPAIGN_BY_ID_SUCESSS,
-            payload: res.data,
-        });
+        return await CampaignService.returnCampaignById(id);
     }
     catch (err) {
       console.log(err);
@@ -82,19 +91,19 @@ export const getCampaignById = (id) => async (dispatch) => {
 } 
 
 export const ActOrDeactCampaign = (id,data) => async (dispatch) => {
-    try {
-        const res = await CampaignService.actOrdectCampaigns(id,data);
-         dispatch({
-            type: Act_Deact_CAMPAIGNS_Success,
-            payload: data,
-           });
 
-           return Promise.resolve(res.data);
+  return await CampaignService.actOrdectCampaigns(id,data).then((data) => {
+      dispatch(success(data));
+  },(error) => {
+      dispatch(failure(error).toString());
+  })
 
-        } catch (err) {
-            return Promise.reject(err);
-        }
+  function success(data){
+      return { type: Act_Deact_CAMPAIGNS_Success, payload: data }
+  }
+
+  function failure(error){
+      return { type: Act_Deact_CAMPAIGNS_Failure, error }
+  }
 }
-
-
 

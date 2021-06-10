@@ -1,54 +1,60 @@
 import { GET_ADMIN_SUCCESS ,
-  ADD_ADMIN_SUCCESS,
-  EDIT_ADMIN_SUCCESS, 
-  DELETE_ADMIN_SUCCESS , 
-  Act_Deact_Admin_Success,
-  RETRIVE_ADMIN_BY_ID_SUCESSS
+  ADD_ADMIN_SUCCESS, 
+  ADD_ADMIN_FAILURE,
+  EDIT_ADMIN_SUCCESS,
+  DELETE_ADMIN_FAILURE, 
+  DELETE_ADMIN_SUCCESS,
+  EDIT_ADMIN_FAILURE,
+  RETRIVE_BY_ID_FAILURE,
+  RETRIVE_ADMIN_BY_ID_SUCESSS, 
+  Act_Deact_Admin_Success,Act_Deact_Admin_Failure, GET_ADMIN_FAILURE
 } from '../actions/type';
 
-const INITIAL_STATE = [];
-
-function adminsReducer(admins = INITIAL_STATE, action ){
+const initialState = {
+  admins: [],
+};
+export default function admins(state = initialState, action ) {
   
     const {type, payload} = action;
 
     switch (type) {
+      case Act_Deact_Admin_Success:
+        return {...state, admins: state.admins.map((index) => index === payload.id ? payload : admins ) };
       
-      case ADD_ADMIN_SUCCESS:
-        return [...admins,payload];
-
-      case GET_ADMIN_SUCCESS:
-        return payload;
-      
-      case EDIT_ADMIN_SUCCESS:
-        return admins.map((admin) => {
-          if(admin.id === payload.id){
-            return {
-              ...admin,
-              ...payload,
-            };
-          } else {
-              return admin;
-            }
-        });
-      
-      case DELETE_ADMIN_SUCCESS: 
-        return admins.filter(({ id }) => id !== payload.id);
+      case Act_Deact_Admin_Failure:
+        return { success: false };
 
       case RETRIVE_ADMIN_BY_ID_SUCESSS:
-        return payload;
+        return { ...state, admins:payload, success:true };
 
-      case Act_Deact_Admin_Success:
-        return admins.map((admin) => {
-          if(admin.id === payload.id){
-            return { ...admin, ...payload };
-          } else {
-            return admin;
-          }
-        });
-        
-        default:
-          return admins;
-      }
+      case RETRIVE_BY_ID_FAILURE:
+        return { success:false };
+
+      case GET_ADMIN_SUCCESS:
+        return {...state, admins: payload, success: true, };
+      
+      case GET_ADMIN_FAILURE: 
+      return { success: false };
+      
+      case ADD_ADMIN_SUCCESS:
+        return {...state, admins: [...state.admins, payload] , success: true, };
+      
+      case ADD_ADMIN_FAILURE:
+        return { success: false };
+  
+      case DELETE_ADMIN_SUCCESS:
+        return { admins: [...state.admins.filter((admin) => admin !== payload)], success: true };
+      
+      case DELETE_ADMIN_FAILURE:
+        return { success: false };
+      
+      case EDIT_ADMIN_SUCCESS:
+        return {...state, admins: state.admins.map((index) => index === payload.id ? payload : admins), success: true };
+      
+      case EDIT_ADMIN_FAILURE:
+        return { success: false };
+      
+      default:
+        return state;
+    }
 }
-export default adminsReducer;

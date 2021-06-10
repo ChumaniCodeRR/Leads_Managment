@@ -2,36 +2,74 @@ import axios from 'axios';
 import { getToken } from '../helpers/utils';
 const API_URL = process.env.REACT_APP_API_URL;
 
-const token = getToken();
 
+   const returnAllCampaigns = async () => {
+        const token = getToken();
+        return await axios.get(API_URL + `campaigns?api_token=${token}`).then((response) => {
+            return response.data.data;
+        })
+        .catch((err) =>{
+            return err;
+       })   
+    }
+    
+    const createCampaigns = async (data) => {
+        const token = getToken();
+        return await axios.post(API_URL + `campaign?api_token=${token}`, data).then((response) => {
+            return response.data;
+          })
+          .catch((err) =>{
+              return err;
+          })      
+    }
+    
+    const returnCampaignById = async (id) => {
+        const token = getToken();
+        return await axios.get(API_URL + `campaign/${id}?api_token=${token}`).then((response) => { 
+            return response.data.data;
+        })
+        .catch((err) =>{
+            return err;
+        })        
+    }
+    
+    const removeCampaigns = async (id) => {
+        
+        const token = getToken();
+        return await axios.delete(API_URL + `campaign/${id}?api_token=${token}`).then((response) => {
+            return response.data.data;
+        }).catch((err) =>{
+            return err;
+        })
+    }
+    
+    const UpdateCampaigns = async (id,data) => {
+        const token = getToken();
+        return await axios.put(API_URL + `campaign/${id}?api_token=${token}` , data).then((response) => {
+            return response.data;
+           })
+           .catch((err) =>{
+              return err;
+           })   
+    }
+    
+    const actOrdectCampaigns = async (id,data) => {
+        const token = getToken();
+        return await axios.put(API_URL + `campaign/status/${id}?api_token=${token}`, data).then((response) => {
+            return response.data;
+           })
+           .catch((err) =>{
+              return err;
+           })   
+    }
 
-class CampaignService {
-
-     returnAllCampaigns = async () => {
-        return await axios.get(API_URL + `campaigns?api_token=${token}`);       
+    export default {
+        returnAllCampaigns,
+        createCampaigns,
+        returnCampaignById,
+        removeCampaigns,
+        UpdateCampaigns,
+        actOrdectCampaigns
     }
-    
-     createCampaigns = async (data) => {
-        return await axios.post(API_URL + `campaign?api_token=${token}`, data);
-    }
-    
-     returnCampaignById = async (id) => {
-        return await axios.get(API_URL + `campaign/${id}?api_token=${token}`);
-    }
-    
-     removeCampaigns = async (id,data) => {
-        return await axios.delete(API_URL + `campaign/${id}?api_token=${token}`);
-    }
-    
-     UpdateCampaigns = async (id,data) => {
-        return await axios.put(API_URL + `campaign/${id}?api_token=${token}` , data);
-    }
-    
-     actOrdectCampaigns = async (id,data) => {
-        return await axios.put(API_URL + `campaign/status/${id}?api_token=${token}`, data);
-    }
-}
-
-export default new CampaignService();
 
 
