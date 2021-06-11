@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/volt-react-dashboard/static/css/main.a03361e5.chunk.css",
-    "main.js": "/volt-react-dashboard/static/js/main.e640045f.chunk.js",
-    "main.js.map": "/volt-react-dashboard/static/js/main.e640045f.chunk.js.map",
+    "main.css": "/volt-react-dashboard/static/css/main.5203f24f.chunk.css",
+    "main.js": "/volt-react-dashboard/static/js/main.f36bb54b.chunk.js",
+    "main.js.map": "/volt-react-dashboard/static/js/main.f36bb54b.chunk.js.map",
     "runtime-main.js": "/volt-react-dashboard/static/js/runtime-main.4ee830c1.js",
     "runtime-main.js.map": "/volt-react-dashboard/static/js/runtime-main.4ee830c1.js.map",
     "static/css/2.dfc0b3d8.chunk.css": "/volt-react-dashboard/static/css/2.dfc0b3d8.chunk.css",
-    "static/js/2.d4808455.chunk.js": "/volt-react-dashboard/static/js/2.d4808455.chunk.js",
-    "static/js/2.d4808455.chunk.js.map": "/volt-react-dashboard/static/js/2.d4808455.chunk.js.map",
+    "static/js/2.87bea62c.chunk.js": "/volt-react-dashboard/static/js/2.87bea62c.chunk.js",
+    "static/js/2.87bea62c.chunk.js.map": "/volt-react-dashboard/static/js/2.87bea62c.chunk.js.map",
     "index.html": "/volt-react-dashboard/index.html",
     "static/css/2.dfc0b3d8.chunk.css.map": "/volt-react-dashboard/static/css/2.dfc0b3d8.chunk.css.map",
-    "static/css/main.a03361e5.chunk.css.map": "/volt-react-dashboard/static/css/main.a03361e5.chunk.css.map",
-    "static/js/2.d4808455.chunk.js.LICENSE.txt": "/volt-react-dashboard/static/js/2.d4808455.chunk.js.LICENSE.txt",
+    "static/css/main.5203f24f.chunk.css.map": "/volt-react-dashboard/static/css/main.5203f24f.chunk.css.map",
+    "static/js/2.87bea62c.chunk.js.LICENSE.txt": "/volt-react-dashboard/static/js/2.87bea62c.chunk.js.LICENSE.txt",
     "static/media/404.59d1f9fd.svg": "/volt-react-dashboard/static/media/404.59d1f9fd.svg",
     "static/media/404.71c68c55.jpg": "/volt-react-dashboard/static/media/404.71c68c55.jpg",
     "static/media/500.38bdf1cf.jpg": "/volt-react-dashboard/static/media/500.38bdf1cf.jpg",
@@ -19,13 +19,13 @@
     "static/media/Lead_System.b134521e.gif": "/volt-react-dashboard/static/media/Lead_System.b134521e.gif",
     "static/media/bootstrap-5-logo.svg": "/volt-react-dashboard/static/media/bootstrap-5-logo.98585727.svg",
     "static/media/bs5-illustrations.54fdef90.svg": "/volt-react-dashboard/static/media/bs5-illustrations.54fdef90.svg",
-    "static/media/canada.svg": "/volt-react-dashboard/static/media/canada.0c7f14f9.svg",
+    "static/media/canada.svg": "/volt-react-dashboard/static/media/canada.7a52d60f.svg",
     "static/media/all.css": "/volt-react-dashboard/static/media/fa-solid-900.f4f93856.woff",
     "static/media/forgot-password.0a988706.jpg": "/volt-react-dashboard/static/media/forgot-password.0a988706.jpg",
-    "static/media/france.svg": "/volt-react-dashboard/static/media/france.40c79af5.svg",
-    "static/media/germany.svg": "/volt-react-dashboard/static/media/germany.cf16b1b6.svg",
-    "static/media/italy.2b31e5a9.svg": "/volt-react-dashboard/static/media/italy.2b31e5a9.svg",
-    "static/media/japan.svg": "/volt-react-dashboard/static/media/japan.382df14f.svg",
+    "static/media/france.svg": "/volt-react-dashboard/static/media/france.0a00ceb7.svg",
+    "static/media/germany.svg": "/volt-react-dashboard/static/media/germany.b3118925.svg",
+    "static/media/italy.c157e934.svg": "/volt-react-dashboard/static/media/italy.c157e934.svg",
+    "static/media/japan.svg": "/volt-react-dashboard/static/media/japan.ccbe3ff8.svg",
     "static/media/lock.cb053aa7.jpg": "/volt-react-dashboard/static/media/lock.cb053aa7.jpg",
     "static/media/marker.4f827b95.svg": "/volt-react-dashboard/static/media/marker.4f827b95.svg",
     "static/media/mockup-calendar-presentation.d8a5b1b0.png": "/volt-react-dashboard/static/media/mockup-calendar-presentation.d8a5b1b0.png",
@@ -52,14 +52,14 @@
     "static/media/themesberg.svg": "/volt-react-dashboard/static/media/themesberg.f3d7e257.svg",
     "static/media/time-and-money.036cbd6b.gif": "/volt-react-dashboard/static/media/time-and-money.036cbd6b.gif",
     "static/media/transactions.0caed640.jpg": "/volt-react-dashboard/static/media/transactions.0caed640.jpg",
-    "static/media/united-kingdom.2d19fed4.svg": "/volt-react-dashboard/static/media/united-kingdom.2d19fed4.svg",
-    "static/media/united-states-of-america.svg": "/volt-react-dashboard/static/media/united-states-of-america.c29455bd.svg"
+    "static/media/united-kingdom.70e4e37f.svg": "/volt-react-dashboard/static/media/united-kingdom.70e4e37f.svg",
+    "static/media/united-states-of-america.svg": "/volt-react-dashboard/static/media/united-states-of-america.923a5cc9.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.4ee830c1.js",
     "static/css/2.dfc0b3d8.chunk.css",
-    "static/js/2.d4808455.chunk.js",
-    "static/css/main.a03361e5.chunk.css",
-    "static/js/main.e640045f.chunk.js"
+    "static/js/2.87bea62c.chunk.js",
+    "static/css/main.5203f24f.chunk.css",
+    "static/js/main.f36bb54b.chunk.js"
   ]
 }
