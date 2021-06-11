@@ -1,34 +1,41 @@
-import {LEADS_NOTES_GET_SUCCESS,LEADS_NOTES_UPDATE_SUCCESS,LEADS_NOTES_DELETE_SUCCESS} from '../actions/type';
+import {
+    LEADS_NOTES_GET_SUCCESS,
+    LEADS_NOTES_UPDATE_SUCCESS,
+    LEADS_NOTES_DELETE_SUCCESS,
+    LEADS_NOTES_GET_FAILURE,
+    LEADS_NOTES_UPDATE_FAILURE,
+    LEADS_NOTES_DELETE_FAILURE} from '../actions/type';
 
-const INITIAL_STATE = [];
+const INITIAL_STATE = { 
+    leadnotes : []
+};
 
-function leadsnoteReducer(leadsnotes = INITIAL_STATE, action ) {
+export default function leadsnotes(state = INITIAL_STATE, action ) {
 
     const {type, payload} = action;
 
     switch (type) {
 
         case LEADS_NOTES_GET_SUCCESS:
-            return payload;
+            return {...state, leadsnotes: payload, success: true, };
         
-        case EDIT_LEADS_SUCCESS:
-            return leadsnotes.map((leadnote) => {
-               if(leadnote.id === payload.id){
-                 return {
-                    ...leadnote,
-                    ...payload,
-                    };
-               } else {
-                 return leadnote;
-            }
-        });
+        case LEADS_NOTES_GET_FAILURE:
+            return { success: false,};
         
+        case LEADS_NOTES_UPDATE_SUCCESS:
+            return {...state, leadsnotes: state.leadsnotes.map((index) => index === payload.id ? payload : leadsnotes), success: true };
+
+        case LEADS_NOTES_UPDATE_FAILURE:
+            return { success: false,};
+            
         case LEADS_NOTES_DELETE_SUCCESS: 
-        return leadsnotes.filter(({ id }) => id !== payload.id);
+            return { leadsnotes: [...state.leadsnotes.filter((leadnote) => leadnote !== payload)], success: true,}
+
+        case LEADS_NOTES_DELETE_FAILURE:
+            return { success : false,};
 
         default:
-            return leadsnotes;
+            return state;
     }
 }
 
-export default leadsnoteReducer;

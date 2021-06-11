@@ -121,6 +121,13 @@ export const LEADS_STATUS_FAILURE = "LEADS_STATUS_FAILURE"
 // leads imports 
 
 export const LEADS_IMPORT_SUCCESS = "LEADS_IMPORT_SUCCESS";
+export const LEADS_IMPORT_FAILURE = "LEADS_IMPORT_FAILURE";
+
+// leads exports 
+
+export const LEADS_EXPORT_SUCCESS = "LEADS_IMPORT_SUCCESS";
+export const LEADS_EXPORT_FAILURE = "LEADS_IMPORT_FAILURE";
+
 
 // leads notes 
 

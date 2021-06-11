@@ -11,7 +11,9 @@ import {
   DELETE_LEADS_FAILURE,
   LEADS_STATUS_FAILURE } from '../actions/type';
 
-const INITIAL_STATE = { leads : [] };
+const INITIAL_STATE = { 
+  leads : [] 
+};
 
 
 export default function leads(state = INITIAL_STATE, action ) {
