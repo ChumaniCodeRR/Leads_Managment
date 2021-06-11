@@ -1,17 +1,17 @@
 {
   "files": {
     "main.css": "/volt-react-dashboard/static/css/main.5203f24f.chunk.css",
-    "main.js": "/volt-react-dashboard/static/js/main.f36bb54b.chunk.js",
-    "main.js.map": "/volt-react-dashboard/static/js/main.f36bb54b.chunk.js.map",
+    "main.js": "/volt-react-dashboard/static/js/main.23432cf8.chunk.js",
+    "main.js.map": "/volt-react-dashboard/static/js/main.23432cf8.chunk.js.map",
     "runtime-main.js": "/volt-react-dashboard/static/js/runtime-main.4ee830c1.js",
     "runtime-main.js.map": "/volt-react-dashboard/static/js/runtime-main.4ee830c1.js.map",
     "static/css/2.dfc0b3d8.chunk.css": "/volt-react-dashboard/static/css/2.dfc0b3d8.chunk.css",
-    "static/js/2.87bea62c.chunk.js": "/volt-react-dashboard/static/js/2.87bea62c.chunk.js",
-    "static/js/2.87bea62c.chunk.js.map": "/volt-react-dashboard/static/js/2.87bea62c.chunk.js.map",
+    "static/js/2.e0632535.chunk.js": "/volt-react-dashboard/static/js/2.e0632535.chunk.js",
+    "static/js/2.e0632535.chunk.js.map": "/volt-react-dashboard/static/js/2.e0632535.chunk.js.map",
     "index.html": "/volt-react-dashboard/index.html",
     "static/css/2.dfc0b3d8.chunk.css.map": "/volt-react-dashboard/static/css/2.dfc0b3d8.chunk.css.map",
     "static/css/main.5203f24f.chunk.css.map": "/volt-react-dashboard/static/css/main.5203f24f.chunk.css.map",
-    "static/js/2.87bea62c.chunk.js.LICENSE.txt": "/volt-react-dashboard/static/js/2.87bea62c.chunk.js.LICENSE.txt",
+    "static/js/2.e0632535.chunk.js.LICENSE.txt": "/volt-react-dashboard/static/js/2.e0632535.chunk.js.LICENSE.txt",
     "static/media/404.59d1f9fd.svg": "/volt-react-dashboard/static/media/404.59d1f9fd.svg",
     "static/media/404.71c68c55.jpg": "/volt-react-dashboard/static/media/404.71c68c55.jpg",
     "static/media/500.38bdf1cf.jpg": "/volt-react-dashboard/static/media/500.38bdf1cf.jpg",
@@ -58,8 +58,8 @@
   "entrypoints": [
     "static/js/runtime-main.4ee830c1.js",
     "static/css/2.dfc0b3d8.chunk.css",
-    "static/js/2.87bea62c.chunk.js",
+    "static/js/2.e0632535.chunk.js",
     "static/css/main.5203f24f.chunk.css",
-    "static/js/main.f36bb54b.chunk.js"
+    "static/js/main.23432cf8.chunk.js"
   ]
 }
