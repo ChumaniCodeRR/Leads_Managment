@@ -1,6 +1,6 @@
 import { LOGIN_FAILURE,LOGIN_SUCCESS,LOGIN_REQUEST,LOGOUT,RESET_PASSWORD } from "../actions/type";
 
-const user = JSON.parse(localStorage.getItem('user'));
+const user = JSON.parse(localStorage.getItem("user"));
 
 const initialState = user
   ? { isLoggedIn: true, user }

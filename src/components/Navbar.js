@@ -16,9 +16,6 @@ import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {getProfile} from '../actions/UserProfileActions';
 
-
-
-
 export default (props) => {
   const [notifications, setNotifications] = useState(NOTIFICATIONS_DATA);
   const areNotificationsRead = notifications.reduce((acc, notif) => acc && notif.read, true);
@@ -28,8 +25,6 @@ export default (props) => {
       setNotifications(notifications.map(n => ({ ...n, read: true })));
     }, 300);
   };
-
-  
 
   /*
    For notification bar 
@@ -59,9 +54,8 @@ export default (props) => {
     );
   };*/
 
-  
   const history = useHistory();
-  const user = getUser();
+  //const user = getUser();
 
   const handleLogOut = () => {
     dispatch(logout())
@@ -75,8 +69,6 @@ export default (props) => {
   useEffect(() => {
     dispatch(getProfile());
   }, []);
-
-
 
   return (
     <Navbar variant="dark" expanded className="ps-0 pe-2 pb-0">

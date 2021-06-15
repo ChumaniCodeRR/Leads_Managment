@@ -2,7 +2,28 @@ import { LOGIN_FAILURE,LOGIN_SUCCESS,LOGIN_REQUEST,LOGOUT,RESET_PASSWORD } from 
 import userService  from "../services/authenticateService";
 
 
-export const login = (data) => {
+
+export const login = (data) => (dispatch) => {
+  return userService.login(data).then(
+      (data) => {
+          dispatch({
+              type: LOGIN_SUCCESS,
+              payload: { user: data },
+              
+          });
+          //setUserSession(data);
+      },
+      (error) => {
+          dispatch({
+              type: LOGIN_FAILURE,
+              error,
+             
+          });
+      }
+  );
+};
+
+/*export const login = (data) => {
     return (dispatch) => {
         
         //dispatch(request({ data }));
@@ -25,7 +46,7 @@ export const login = (data) => {
       function failure(error) {
         return { type: LOGIN_FAILURE, error };
       }
-  };
+  };*/
   
   export const logout = () => (dispatch) => {
     userService.logout();
@@ -38,7 +59,7 @@ export const login = (data) => {
    
     return (dispatch) => {
         userService.resetPassword(email)
-        .then((user)=>{
+        .then((user) => {
         dispatch(success(user)); 
       })
     };
