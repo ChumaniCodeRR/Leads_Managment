@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 
+=======
+>>>>>>> 73f1a730fcc0a82883f328b8129ca05dc16ac3ca
 import {
     LEADS_NOTES_GET_SUCCESS,
     LEADS_NOTES_UPDATE_SUCCESS,
