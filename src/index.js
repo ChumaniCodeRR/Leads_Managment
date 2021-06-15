@@ -5,10 +5,7 @@ import { Provider } from "react-redux";
 // vendor styles
 import "@fortawesome/fontawesome-free/css/all.css";
 import "react-datetime/css/react-datetime.css";
-
 import "./scss/volt.scss";
-
-
 import HomePage from "./pages/HomePage";
 import ScrollToTop from "./components/ScrollToTop";
 import App from './App';
@@ -18,7 +15,6 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import thunk from "redux-thunk";
 import rootReducer from './reducers/index'
 //import store from './store';
-
 
 const store = createStore(
   rootReducer,
