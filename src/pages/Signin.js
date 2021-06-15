@@ -7,31 +7,38 @@ import { Link } from 'react-router-dom';
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import Swal from "sweetalert2";
-import { Routes } from "../../routes";
-import BgImage from "../../assets/img/illustrations/signin.svg";
-import {login} from '../../actions/Authentication';
+import { Routes } from "../routes";
+import BgImage from "../assets/img/illustrations/signin.svg";
+import {login} from '../actions/Authentication';
 import axios from "axios";
 
 const Signin = (props) => {
+
+ // const { register, handleSubmit, errors } = useForm();
   const[inputs, setInputs] = useState({
     email:"",
     password:"",
  });
 
- const [isloading ,setisloading] = useState(false)
- const { register , handleSubmit, formState: { errors } } = useForm();
+ const [isloading , setisloading] = useState(false)
+ //const { register , handleSubmit, formState: { errors } } = useForm();
+ const { register, handleSubmit, formState: { errors }} = useForm();
+ //const { register, handleSubmit, errors } = useForm();
  const { email, password } = inputs;
+
+ const dispatch = useDispatch();
+
  //const email = useFormInput('');
 // const password = useFormInput('');
  //const [error, setError] = useState(null);
- const dispatch = useDispatch();
 
- function onChange(e) {
-   const { name, value } = e.target;
-   setInputs((inputs) => ({ ...inputs, [name]: value }));
- }
+ 
+ function onChange(e){
+  const { name, value } = e.target;
+  setInputs(inputs => ({ ...inputs, [name]: value }));
+}
 
- function onSubmit() {
+ /*function onSubmit(e) {
   setisloading(true)
   dispatch(login(inputs))
      .then(res => {
@@ -41,6 +48,15 @@ const Signin = (props) => {
      .catch(() => {
        errorMessage()
      })
+  }*/
+
+  function onSubmit(e){
+    if(inputs.email && inputs.password) {
+      dispatch(login(inputs))
+      props.history.push('/dashboard/overview')
+    } else {
+      errorMessage();
+    }
   }
 
  function errorMessage(){
@@ -75,9 +91,15 @@ const Signin = (props) => {
                     </InputGroup.Text>
                     <Form.Control 
                     //autoFocus 
+                   // inputRef={register({ required: true })}
                     name="email" 
                     value={email} 
-                    required 
+                    //{...register(email)}
+                    //required 
+                    //{...register("message", {
+                      //required: "Required",
+                    //})}
+                    //
                     onChange={onChange}
                     type="email" 
                     autoComplete="off"
@@ -86,7 +108,7 @@ const Signin = (props) => {
                     />
                   </InputGroup>      
                 </Form.Group>
-                {errors.email && errors.email.message}
+                {errors.message && errors.message.message}
                 <Form.Group>
                   <Form.Group className="mb-4">
                     <Form.Label>Your Password</Form.Label>
@@ -95,11 +117,15 @@ const Signin = (props) => {
                         <FontAwesomeIcon icon={faUnlockAlt} />
                       </InputGroup.Text>
                       <Form.Control 
-                      required 
+                      //inputRef={register({ required: true })} 
                       type="password" 
                       placeholder="Password"
                       value={password}
+                      {...register(password)}
                       name="password"
+                      //{...register("message", {
+                     //   required: "Required",
+                     // })}
                       autoComplete="off"
                       onChange={onChange}
                       //{...register('password', { required: true })}

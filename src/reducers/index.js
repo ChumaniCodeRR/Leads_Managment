@@ -8,7 +8,6 @@ import leads  from './Lead';
 import leadsnote from './LeadsNotes';
 import leadsimport from './LeadsImport';
 import userprofile from './UserProfile';
-import resetpassword from './ResetPassword';
 
 const rootReducer = combineReducers({
     authentication,
@@ -19,8 +18,8 @@ const rootReducer = combineReducers({
     leads,
     leadsnote,
     leadsimport,
-    userprofile,
-    resetpassword
+    userprofile
+    
 })
 
 export default rootReducer

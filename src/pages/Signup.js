@@ -5,9 +5,8 @@ import { faAngleLeft, faEnvelope, faUnlockAlt } from "@fortawesome/free-solid-sv
 import { faFacebookF, faGithub, faReadme, faTwitter } from "@fortawesome/free-brands-svg-icons";
 import { Col, Row, Form, Card, Button, FormCheck, Container, InputGroup } from '@themesberg/react-bootstrap';
 import { Link } from 'react-router-dom';
-
-import { Routes } from "../../routes";
-import BgImage from "../../assets/img/illustrations/signin.svg";
+import { Routes } from "../routes";
+import BgImage from "../assets/img/illustrations/signin.svg";
 import { findAllByRole } from "@testing-library/dom";
 
 

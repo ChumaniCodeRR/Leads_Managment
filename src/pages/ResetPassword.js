@@ -5,8 +5,8 @@ import { faAngleLeft, faEnvelope, faUnlockAlt } from "@fortawesome/free-solid-sv
 import { Col, Row, Form, Card, Button, Container, InputGroup } from '@themesberg/react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useHistory } from "react-router-dom";
-import { ResetPassword } from '../../actions/ResetPassword';
-import { Routes } from "../../routes";
+import { ResetPassword } from '../actions/ResetPassword';
+import { Routes } from "../routes";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import Swal from "sweetalert2";

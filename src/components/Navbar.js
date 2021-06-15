@@ -10,7 +10,7 @@ import Profile3 from "../assets/img/team/profile-picture-3.jpg";
 import { Routes } from "../routes";
 import { Link } from 'react-router-dom';
 import { useForm } from "react-hook-form";
-import { SignOut } from '../actions/Authentication';
+import { logout } from '../actions/Authentication';
 import { getUser, removeUserSession } from '../helpers/utils';
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -64,7 +64,7 @@ export default (props) => {
   const user = getUser();
 
   const handleLogOut = () => {
-    dispatch(SignOut())
+    dispatch(logout())
     removeUserSession();
     history.push('/');
   }

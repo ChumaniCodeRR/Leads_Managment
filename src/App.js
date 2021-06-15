@@ -3,7 +3,7 @@ import { HashRouter, Route, Switch } from 'react-router-dom';
 import {PrivateRoute} from './helpers/privateRouter';
 import HomePage from "./pages/HomePage";
 import ScrollToTop from "./components/ScrollToTop";
-import Signin from './pages/examples/Signin';
+import Signin from './pages/Signin';
 
 const loading = (
     <div className="pt-3 text-center">
@@ -12,9 +12,9 @@ const loading = (
   )
 
 // Pages
-const SignIn = React.lazy(() => import('./pages/examples/Signin'));
-const Signup = React.lazy(() => import('./pages/examples/Signup'));
-const ResetPassowrd = React.lazy(() => import('./pages/examples/ResetPassword'));
+const SignIn = React.lazy(() => import('./pages/Signin'));
+const Signup = React.lazy(() => import('./pages/Signup'));
+const ResetPassowrd = React.lazy(() => import('./pages/ResetPassword'));
 const ForgotPassword = React.lazy(() => import('./pages/examples/ForgotPassword'));
 const Presentation = React.lazy(() => import('./pages/Presentation'));
 const Transaction = React.lazy(() => import('./pages/Transactions'));

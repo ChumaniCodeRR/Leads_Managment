@@ -1,7 +1,9 @@
 //Authentication Actions 
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
-export const LOGIN_FAIL = "LOGIN_FAIL";
+export const LOGIN_FAILURE = "LOGIN_FAILURE";
 export const LOGOUT = "LOGOUT";
+export const LOGIN_REQUEST = "LOGIN_REQUEST";
+export const RESET_PASSWORD = "RESET_PASSWORD";
 
 //Reset Password 
 
