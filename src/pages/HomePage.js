@@ -66,6 +66,8 @@ import CreateCampaigns from './campaigns/CreateCampaigns';
 import UpdateCampaigns from './campaigns/UpdateCampaigns';
 import ViewCampaign from './campaigns/ViewCampaign';
 import Leads from './leads/Leads';
+import LeadsStatus from './leads/LeadsStatus';
+import LeadNotes from './leadnotes/LeadNotes';
 import CreateLeads from './leads/CreateLeads';
 import UpdateLeads from './leads/UpdateLeads';
 import Profile from './examples/Profile';
@@ -154,7 +156,10 @@ export default () => (
     <RouteWithSidebar exact path={Routes.CreateCampaigns.path} component={CreateCampaigns}/>
     <RouteWithSidebar exact path={Routes.UpdateCampaigns.path} component={UpdateCampaigns}/>
     <RouteWithSidebar exact path={Routes.ViewCampaign.path} component={ViewCampaign}/>
+
+    <RouteWithSidebar exact path={Routes.LeadsNotes.path} component={LeadNotes}/>
     <RouteWithSidebar exact path={Routes.Leads.path} component={Leads}/>
+    <RouteWithSidebar exact path={Routes.LeadsStatus.path} component={LeadsStatus}/>
     <RouteWithSidebar exact path={Routes.CreateLeads.path} component={CreateLeads}/>
     <RouteWithSidebar exact path={Routes.UpdateLeads.path} component={UpdateLeads}/>
     <RouteWithSidebar exact path={Routes.Profile.path} component={Profile}/>

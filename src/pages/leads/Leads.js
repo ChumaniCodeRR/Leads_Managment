@@ -11,6 +11,7 @@ import { Link } from 'react-router-dom';
 import { Routes } from "../../routes";
 import Spinner from '../../helpers/spinner';
 import Swal from "sweetalert2";
+import TablePagination from "@material-ui/core/TablePagination";
 
 
 const Leads = (props) => {
@@ -29,15 +30,16 @@ const Leads = (props) => {
   const leadslist = useSelector((state) => state.leads);
   const [isloading, setisloading] = useState(false);
 
-    const [leads, setLeads] = useState([]);
-    const [searchTerm, setSearchTerm] = useState("");
-    const [searchResults, setSearchResults] = useState([]);
+  const [leads, setLeads] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
 
-    const id = props.match.params.id;
+  const id = props.match.params.id;
 
     const handleChange = (e) => {
       setSearchTerm(e.target.value);
     };
+    
     useEffect(() => {
       setisloading(true);
 
@@ -166,10 +168,9 @@ const Leads = (props) => {
           <Table hover className="user-table align-items-center">
           <thead>
             <tr>
-              <th className="border-top">Campaign</th>
-              <th className="border-top">(Data)Json</th>
-              <th className="border-top">Lead Status</th>
-              <th className="border-top">Lead Comment</th>
+              <th className="border-top">Lead Data</th>
+              <th className="border-top">Status</th>
+              <th className="border-top">Notes</th>
               <th className="border-top">Action</th>
             </tr>
           </thead>
@@ -182,11 +183,21 @@ const Leads = (props) => {
                 page * rowsPerPage + rowsPerPage
               )
               .map((row) => (
-                <tr key={row.id}>           
-                    
-                   
+                <tr key={row.id}> 
+                    <td>
+                      <table>
+                        <tr>
+                          <th>.
+                          <td>{row.data.last_name}</td>
+                          <td>{row.data.first_name}</td>
+                          <td>{row.data.email}</td>
+                          <td>{row.data.comment_}</td>
+                          </th>
+                        </tr>
+                      </table>  
+                    </td>        
                     <td className="fw-normal">
-                        <span className={`fw-normal text-${row.lead_status === "On" ? "success" : "Off" ? "danger" : "primary"}`}>
+                        <span className={`fw-normal text-${row.lead_status === "received" ? "success" : "sold" ? "danger" : "primary"}`}>
                         {row.lead_status}
                         </span>
                     </td>
@@ -201,16 +212,15 @@ const Leads = (props) => {
                       </span>
                   </Dropdown.Toggle>
                   <Dropdown.Menu>
-                  <Dropdown.Item as={Link} >
-                   <FontAwesomeIcon icon={faEye} className="me-2" /> View Details
-                  </Dropdown.Item>
                   <Dropdown.Item as={Link} to={Routes.UpdateLeads.path}>
                     <FontAwesomeIcon icon={faEdit} className="me-2" /> Edit           
                   </Dropdown.Item>
                   <Dropdown.Item className="text-danger" onClick={() => confirmButton()}>
                     <FontAwesomeIcon icon={faTrashAlt} className="me-2" /> Remove
                   </Dropdown.Item>
-                  
+                  <Dropdown.Item as={Link} to={`/leadnotes/LeadNotes/${row.id}`}>
+                    <FontAwesomeIcon icon={faExternalLinkAlt} className="me-2" /> Leads notes           
+                  </Dropdown.Item>
                   </Dropdown.Menu>
                   </Dropdown>
                     </td>
@@ -221,31 +231,25 @@ const Leads = (props) => {
           </tbody>
         </Table>
         )}
-        <Card.Footer className="px-3 border-0 d-lg-flex align-items-center justify-content-between">
-         <Nav>
-           <Pagination className="mb-2 mb-lg-0">
-             <Pagination.Prev>
-               Previous
-             </Pagination.Prev>
-             <Pagination.Item active>1</Pagination.Item>
-             <Pagination.Item>2</Pagination.Item>
-             <Pagination.Item>3</Pagination.Item>
-             <Pagination.Item>4</Pagination.Item>
-             <Pagination.Item>5</Pagination.Item>
-             <Pagination.Next>
-               Next
-             </Pagination.Next>
-           </Pagination>
-         </Nav>
-         <small className="fw-bold">
-           Showing <b> </b> out of <b>25</b> entries
-         </small>
-       </Card.Footer>
+       <Card.Footer className="px-3 border-0 d-lg-flex align-items-center justify-content-between">
+         <TablePagination
+            rowsPerPageOptions={[10,15,20,100, 1000, 2000]}
+            component="div"
+            count={
+              searchTerm === "" ? leadslist.leads.length : searchResults.length
+            }
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onChangePage={handleChangePage}
+            onChangeRowsPerPage={handleChangeRowsPerPage}
+          />
+          <small className="fw-bold">
+            Showing <b> </b> out of {page} <b>25</b> entries
+          </small>
+         </Card.Footer>
         </Card.Body>
-        
         </Card>
-
-        </>
+      </>
     )
 }
 

@@ -102,10 +102,8 @@ export default (props = {}) => {
               <NavItem title="Overview" link={Routes.DashboardOverview.path} icon={faChartPie} />
               <NavItem title="Administration" link={Routes.Admin.path} icon={faAppStore}/>
               <NavItem title="Clients" link={Routes.Client.path} icon={faLuggageCart}/>
-              
               <NavItem title="Campaigns" icon={faClock} link={Routes.Campaigns.path}/>
-              <NavItem title="Leads" icon={faAddressCard} link={Routes.Leads.path}/>
-              <NavItem title="Transactions" icon={faHandHoldingUsd} link={Routes.Transactions.path} />
+              <NavItem title="Leads Status" icon={faAddressCard} link={Routes.LeadsStatus.path}/>
               
             </Nav>
           </div>

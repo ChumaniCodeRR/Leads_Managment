@@ -7,7 +7,7 @@ import {
     LEADS_NOTES_UPDATE_FAILURE,
     LEADS_NOTES_DELETE_FAILURE } from '../actions/type';
 
-    export const getAllLeads = (id) => async (dispatch) => {
+    export const getAllLeadsNotes = (id) => async (dispatch) => {
         return await LeadsNotesService.returnLeadsNotes(id).then((data) => {
          dispatch(success(data))
        },(error) => {

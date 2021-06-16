@@ -2,7 +2,6 @@ import axios from 'axios';
 import {getToken} from '../helpers/utils';
 const API_URL = process.env.REACT_APP_API_URL;
 
-
     const returnAllCampaignLeads = async (id) => {
         const token = getToken();
         return await axios.get(API_URL + `campaign/leads/${id}?api_token=${token}`).then((response) => {

@@ -7,7 +7,7 @@ import {
     LEADS_NOTES_DELETE_FAILURE} from '../actions/type';
 
 const INITIAL_STATE = { 
-    leadnotes : []
+    leadsnotes : []
 };
 
 export default function leadsnotes(state = INITIAL_STATE, action ) {
@@ -29,7 +29,7 @@ export default function leadsnotes(state = INITIAL_STATE, action ) {
             return { success: false,};
             
         case LEADS_NOTES_DELETE_SUCCESS: 
-            return { leadsnotes: [...state.leadsnotes.filter((leadnote) => leadnote !== payload)], success: true,}
+            return { leadsnotes: [...state.leadsnotes.filter((leadsnote) => leadsnote !== payload)], success: true,}
 
         case LEADS_NOTES_DELETE_FAILURE:
             return { success : false,};

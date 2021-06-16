@@ -12,7 +12,6 @@ import { Nav, Card, Image, Table , ProgressBar, Pagination  } from '@themesberg/
 import { Link } from 'react-router-dom';
 import Documentation from "../../components/Documentation";
 import { Routes } from "../../routes";
-//import campaigns from "../../data/campaigns";
 import { TableRow } from "@material-ui/core";
 import TablePagination from "@material-ui/core/TablePagination";
 
@@ -205,28 +204,24 @@ const Campaigns = (props) => {
               <th className="border-top">Name</th>
               <th className="border-top">Start Date </th>
               <th className="border-top">End Date</th>
-              
               <th className="border-top">Status</th>
               <th className="border-top">Action</th>
             </tr>
           </thead>
           <tbody>
-            {
-            
+            {   
               (searchTerm === "" ? campaignlist.campaigns : searchResults)
               .slice(
                 page * rowsPerPage,
                 page * rowsPerPage + rowsPerPage
               )
-              .map((row) => (
-                
+              .map((row) => (   
                 <tr key={row.id}>           
                     <td className="mb-3">
                       {row.client}
                     </td>
                     <td sm={4} className="mb-3">
                       {row.name}
-                    
                     </td>
                     <td className="fw-normal">
                       {row.start_date}
@@ -262,7 +257,7 @@ const Campaigns = (props) => {
                     <FontAwesomeIcon icon={faAmilia} className="me-2" /> Active/InActive
                   </Dropdown.Item>
                   <Dropdown.Item as={Link} to={`/leads/Leads/${row.id}`}>
-                    <FontAwesomeIcon icon={faPlus} className="me-2" /> Campaign Leads 
+                    <FontAwesomeIcon icon={faPlus} className="me-2" /> Campaign Lead
                    </Dropdown.Item>   
                   </Dropdown.Menu>
                   </Dropdown>

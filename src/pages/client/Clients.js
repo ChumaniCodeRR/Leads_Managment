@@ -30,9 +30,9 @@ const Clients = () => {
   const clientlist = useSelector((state) => state.clients);
   const [isloading, setisloading] = useState(false);
 
-    const [clients, setClients] = useState([]);
-    const [searchTerm, setSearchTerm] = useState("");
-    const [searchResults, setSearchResults] = useState([]);
+  const [clients, setClients] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
 
     const handleChange = (e) => {
       setSearchTerm(e.target.value);
