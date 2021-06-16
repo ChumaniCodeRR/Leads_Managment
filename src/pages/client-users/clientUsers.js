@@ -18,7 +18,6 @@ import clients from 'src/reducers/Client';
 
 const ClientUsers = (props) => {
 
-
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const handleChangePage = (event, newPage) => {
@@ -30,8 +29,10 @@ const ClientUsers = (props) => {
   };
 
   const dispatch = useDispatch();
+  
   const clientuserslist = useSelector((state) => state.clientUsers);
-  const clientlist = useSelector((state) => state.cilents);
+
+  //const clientlist = useSelector((state) => state.cilents);
 
   const [isloading, setisloading] = useState(false);
 
@@ -46,8 +47,6 @@ const ClientUsers = (props) => {
       setSearchTerm(e.target.value);
     };
     
-   
-
     useEffect(() => {
       setisloading(true);
       //show no records 

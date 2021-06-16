@@ -13,8 +13,7 @@ import Spinner from '../../helpers/spinner';
 import Swal from "sweetalert2";
 
 
-const Leads = () => {
-
+const Leads = (props) => {
 
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -34,26 +33,35 @@ const Leads = () => {
     const [searchTerm, setSearchTerm] = useState("");
     const [searchResults, setSearchResults] = useState([]);
 
+    const id = props.match.params.id;
+
     const handleChange = (e) => {
       setSearchTerm(e.target.value);
     };
-   /* useEffect(() => {
+    useEffect(() => {
       setisloading(true);
-      dispatch(getAllLeads()).then(() => {
+
+      if(id === ""){
+        postMessage("message");
+     }
+
+      dispatch(getAllLeads(id)).then(() => {
+      
         setisloading(false);
-        // window.location.reload();
+      
       });
-      //setClients(clientlist.clients);
+      setLeads(leadslist.leads);
+
       if (searchTerm === "") {
         return;
       } else {
         setSearchResults(
-          clients.filter((client) =>
-            client.name.toLowerCase().includes(searchTerm.toLowerCase())
+          leads.filter((lead) =>
+            lead.name.toLowerCase().includes(searchTerm.toLowerCase())
           )
         );
       }
-    }, [clients, searchTerm]);*/
+    }, [leads, searchTerm]);
 
 
     function removeLead(index){
@@ -168,25 +176,22 @@ const Leads = () => {
           <tbody>
             {
               //(searchTerm === "" ? adminlist.admins : searchResults)
+             leadslist.leads.length ? (
               leadslist.leads.slice(
                 page * rowsPerPage,
                 page * rowsPerPage + rowsPerPage
               )
               .map((row) => (
                 <tr key={row.id}>           
-                    <td>
-                      {row.Campaign_id}
-                    </td>
-                    <td>
-                      {row.Json_data}
-                    </td>
+                    
+                   
                     <td className="fw-normal">
-                        <span className={`fw-normal text-${row.lead_status_id === "On" ? "success" : "Off" ? "danger" : "primary"}`}>
-                        {row.lead_status_id}
+                        <span className={`fw-normal text-${row.lead_status === "On" ? "success" : "Off" ? "danger" : "primary"}`}>
+                        {row.lead_status}
                         </span>
                     </td>
                     <td>
-                      {row.lead_comment}
+                      {row.notes}
                     </td>
                     <td>
                   <Dropdown as={ButtonGroup}>
@@ -211,6 +216,7 @@ const Leads = () => {
                     </td>
                 </tr>
               ))
+              ) : <div>No record</div>
             }
           </tbody>
         </Table>

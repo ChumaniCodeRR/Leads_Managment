@@ -27,7 +27,7 @@ export const Routes = {
     CreateCampaigns: { path : "/campaigns/CreateCampaigns" },
     UpdateCampaigns: { path : "/campaigns/UpdateCampaigns/:id"},
     
-    Leads: { path: "/leads/Leads"},
+    Leads: { path: "/leads/Leads/:id"},
     CreateLeads: { path: "/leads/CreateLeads"},
     UpdateLeads: { path: "/leads/UpdateLeads"},
     Profile: { path: "/examples/profile"},

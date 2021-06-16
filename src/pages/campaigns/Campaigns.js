@@ -260,7 +260,10 @@ const Campaigns = (props) => {
                   </Dropdown.Item>
                   <Dropdown.Item onClick={() => confirmButtonAct()}>
                     <FontAwesomeIcon icon={faAmilia} className="me-2" /> Active/InActive
-                  </Dropdown.Item>   
+                  </Dropdown.Item>
+                  <Dropdown.Item as={Link} to={`/leads/Leads/${row.id}`}>
+                    <FontAwesomeIcon icon={faPlus} className="me-2" /> Campaign Leads 
+                   </Dropdown.Item>   
                   </Dropdown.Menu>
                   </Dropdown>
                     </td>
