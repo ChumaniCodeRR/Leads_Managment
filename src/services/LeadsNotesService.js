@@ -4,7 +4,7 @@ const API_URL = process.env.REACT_APP_API_URL;
 
     const returnLeadsNotes = async (id) => {
         const token = getToken();
-        return await axios.get(API_URL + `/leads/notes/${id}?api_token=${token}`).then((response) => {
+        return await axios.get(API_URL + `leads/notes/${id}?api_token=${token}`).then((response) => {
             return response.data.data;
         })
         .catch((err) =>{

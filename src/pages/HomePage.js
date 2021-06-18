@@ -14,7 +14,7 @@ import Signup from "./Signup";
 import ForgotPassword from "./examples/ForgotPassword";
 import ResetPassword from "./ResetPassword";
 import Lock from "./examples/Lock";
-import NotFoundPage from "./examples/NotFound";
+import NotFoundPage from "./NotFound";
 import ServerError from "./examples/ServerError";
 
 // documentation pages
@@ -70,7 +70,7 @@ import LeadsStatus from './leads/LeadsStatus';
 import LeadNotes from './leadnotes/LeadNotes';
 import CreateLeads from './leads/CreateLeads';
 import UpdateLeads from './leads/UpdateLeads';
-import Profile from './examples/Profile';
+import Profile from './Profile';
 import AdminStatus from './admin/AdminStatus';
 // end of newly added pages 
 const RouteWithLoader = ({ component: Component, ...rest }) => {

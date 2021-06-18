@@ -1,12 +1,70 @@
-import React from "react";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBoxOpen, faPhoneSquare ,faCartArrowDown, faChartPie, faChevronDown, faClipboard, faCommentDots, faFileAlt, faPlus, faRocket, faStore , faHome} from '@fortawesome/free-solid-svg-icons';
 import { Col, Row, Card, Form, Button, InputGroup, FormGroup , Breadcrumb , Dropdown } from '@themesberg/react-bootstrap';
 import { ChoosePhotoWidget, ProfileCardWidget } from "../../components/Widgets";
 import { Routes } from "../../routes";
 import { Link, NavLink } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { createNewLead } from '../../actions/LeadsActions';
+import { useForm } from "react-hook-form";
+import Swal from "sweetalert2";
 
-const CreateLeads = () => {
+
+
+const CreateNewLeads = (props) => {
+
+  const [inputs, setInputs] = useState({
+    last_name:"",
+    first_name:"",
+    email:"",
+    comment_:"",
+    //lead_status:""
+  })
+
+  const { register , handleSubmit, formState: { errors } }  = useForm();
+
+  const { last_name, first_name, email, comment_ } = inputs;
+
+  const id = props.match.params.id;
+
+  const [lead_status, setLeadStatus] = useState();
+
+  //const [firstName, setFirstName] = useState("");
+  const dispatch = useDispatch();
+
+  const[currentStatus, setStatus] = useState();
+
+  const changeStatus = (newstatus) => {
+    setLeadStatus(newstatus);
+  }
+
+  function onChange(e) {
+    const { name, value } = e.target;
+    setInputs((inputs) => ({ ...inputs, [name]: value }));
+  }
+
+  function onSubmit() {
+    dispatch(createNewLead(id,inputs))
+    .then(() => {
+       successMessage();
+    })
+    .catch((errors) => {
+      console.log(errors)
+    })
+  }
+
+  function successMessage() {
+    Swal.fire({
+      position: "center",
+      icon: "success",
+      title: "Successfully Saved",
+      showConfirmButton: false,
+      timer: 1500,
+    }).then(() => {
+      props.history.push(`/leads/Leads/${id}`);
+    });
+  }
     return (
         <>
          <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4">
@@ -15,7 +73,7 @@ const CreateLeads = () => {
              <Breadcrumb.Item><FontAwesomeIcon icon={faHome} /></Breadcrumb.Item>
               <Breadcrumb.Item>Vetro Lead</Breadcrumb.Item>
             <Breadcrumb.Item >
-            <NavLink as={Link} to={Routes.Leads.path}>
+            <NavLink as={Link} to={`/leads/Leads/${id}`}>
                Leads 
             </NavLink>           
             </Breadcrumb.Item>
@@ -35,30 +93,34 @@ const CreateLeads = () => {
            <Card border="light" className="bg-white shadow-sm mb-4">
             <Card.Body>
             <h5 className="mb-4">General information</h5>
-            <Form>
+            <Form onSubmit={handleSubmit(onSubmit)}>
             <Row>
-            <Col sm={4} className="mb-3">
+              <Col md={6} className="mb-3">
                 <Form.Group className="mb-2">
-                  <Form.Label>Campaign</Form.Label>
-                  <Form.Select id="campaign" defaultValue="0">
-                   <option value="0"></option>
-                   <option value="MTN">#MyNeoShoot Campaign</option>
-                   <option value="Vodacom">#RedCupContest</option>
-                   <option value="Telkom">#LibertyExpressGiveaway</option>
-                  </Form.Select>
+                  <Form.Label>Last name</Form.Label>
+                  <Form.Control required type="text" name="last_name" value={last_name} onChange={onChange} placeholder="Enter last name" />
+                </Form.Group>
+              </Col>
+              <Col md={6} className="mb-3">
+                <Form.Group className="mb-2">
+                  <Form.Label>First Name</Form.Label>
+                  <Form.Control required type="text" name="first_name" value={first_name} onChange={onChange} placeholder="Enter first name" />
                 </Form.Group>
               </Col>
             </Row>
             <Row>
-            <Col sm={4} className="mb-3">
+              <Col md={6} className="mb-3">
                 <Form.Group className="mb-2">
-                  <Form.Label>Client</Form.Label>
-                  <Form.Select id="client" defaultValue="0">
-                   <option value="0"></option>
-                   <option value="MTN">MTN</option>
-                   <option value="Vodacom">Vodacom</option>
-                   <option value="Telkom">Telkom</option>
-                  </Form.Select>
+                  <Form.Label>Email</Form.Label>
+                  <Form.Control required type="email" name="email" value={email} onChange={onChange} placeholder="company@email.com..." />
+                </Form.Group>
+              </Col>
+            </Row>
+            <Row>
+              <Col md={6} className="mb-3">
+                <Form.Group >
+                  <Form.Label>Lead Comments</Form.Label>
+                  <Form.Control as="textarea" rows="4" name="comment_" value={comment_} onChange={onChange} placeholder="Enter your comment..." />
                 </Form.Group>
               </Col>
             </Row>
@@ -66,47 +128,29 @@ const CreateLeads = () => {
             <Col md={6} className="mb-3">
               <Form.Group id="email">
                 <Form.Label>Lead Status</Form.Label>
-                <Col sm={10}>
-        <Form.Check
-          type="radio"
-          label="On"
-          name="formHorizontalRadios"
-          id="formHorizontalRadios1"
-        />
-        <Form.Check
-          type="radio"
-          label="Off"
-          name="formHorizontalRadios"
-          id="formHorizontalRadios2"
-        />
-        
+                <Form.Select id="status" 
+                 name="lead_status"
+                 onChange={(e) => changeStatus(e.target.value)}
+                 //onChange={(event) => changeStatus(event.target.value)} 
+                 value={lead_status}>
+                  <option value="received">Received</option>
+                  <option value="in progress">In-Progress</option>
+                  <option value="sold">Sold</option>
+                  <option value="unsuccessful">Unsuccessful</option>
+                </Form.Select>
+              </Form.Group>
              </Col>
-              </Form.Group>
-            </Col>
             </Row>
-            <Row>
-              <Col md={6} className="mb-3">
-              <Form.Group id="description">
-                <Form.Label>Lead Comments</Form.Label>
-                <Form.Control as="textarea" rows="4" placeholder="Enter your comment..."/>
-              </Form.Group>
-              </Col>
-            </Row>
-            
-            
             <div className="mt-3">
-              <Button variant="primary" type="submit">Create</Button>
+              <Button variant="primary" type="submit">Create Lead</Button>
              </div>
-
             </Form>
          </Card.Body>
         </Card>
           </Col>
         </Row>
-
-
         </>
     )
 }
 
-export default CreateLeads
+export default CreateNewLeads

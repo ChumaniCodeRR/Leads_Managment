@@ -9,8 +9,8 @@ import { GET_CLIENT_USERS_SUCCESS ,
         DELETE_CLIENT_USERS_FAILURE,
         Act_Deact_CLIENT_USERS_Success,Act_Deact_CLIENT_USERS_Failure, RETRIVE_CLIENTUSER_BY_ID_SUCESSS} from '../actions/type';
 
-      export const getAllClientUsers = () => async (dispatch) => {
-          return await ClientUsersService.returnAllClientUsers().then((data) => {
+    export const getAllClientUsers = (id) => async (dispatch) => {
+          return await ClientUsersService.returnAllClientUsers(id).then((data) => {
            dispatch(success(data))
          },(error) => {
             dispatch(failure(error).toString());

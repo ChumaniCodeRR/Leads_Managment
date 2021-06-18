@@ -11,9 +11,6 @@ import { Link } from 'react-router-dom';
 import { Routes } from "../../routes";
 import Spinner from '../../helpers/spinner';
 import Swal from "sweetalert2";
-import { getAllClients } from 'src/actions/ClientActions';
-import clients from 'src/reducers/Client';
-
 
 
 const ClientUsers = (props) => {
@@ -32,12 +29,9 @@ const ClientUsers = (props) => {
   
   const clientuserslist = useSelector((state) => state.clientUsers);
 
-  //const clientlist = useSelector((state) => state.cilents);
-
   const [isloading, setisloading] = useState(false);
 
-  const [clientUsers, setClientsUser] = useState([]);
-
+  const [clientusers, setClientsUser] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
 
@@ -63,12 +57,12 @@ const ClientUsers = (props) => {
         return;
       } else {
         setSearchResults(
-          clientUsers.filter((clientusers) =>
-            clientusers.name.toLowerCase().includes(searchTerm.toLowerCase())
+          clientusers.filter((clientuser) =>
+           clientuser.name.toLowerCase().includes(searchTerm.toLowerCase())
           )
         );
       }
-    }, [clientUsers, searchTerm]);
+    }, [clientusers, searchTerm]);
 
 
     function removeClient(index){
@@ -125,7 +119,6 @@ const ClientUsers = (props) => {
       });
     }
 
-
     return (
         <>
          <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4">
@@ -181,7 +174,7 @@ const ClientUsers = (props) => {
         <Card.Body className="pt-0">          
           <Card.Header>
          <Row>
-          <Col xs={8} md={6} lg={3} xl={4}>         
+           <Col xs={8} md={6} lg={3} xl={4}>         
                   {/* <label className="form-label">Search</label> */}                  
                <InputGroup>
                 <InputGroup.Text>
@@ -189,7 +182,7 @@ const ClientUsers = (props) => {
                 </InputGroup.Text>
                 <Form.Control type="text" className="form-control" onChange={handleChange} placeholder="Search" />
               </InputGroup>               
-         </Col>
+           </Col>
           </Row>
         </Card.Header>
         {isloading && <Spinner/> }
@@ -210,7 +203,7 @@ const ClientUsers = (props) => {
           <tbody>
             {
               //searchTerm === "" ? clientuserslist.clientUsers : searchResults
-
+             /// check this clientusers display
               clientuserslist.clientUsers.length ? (
                 clientuserslist.clientUsers.slice(
                   page * rowsPerPage,
@@ -262,9 +255,7 @@ const ClientUsers = (props) => {
                  </tr>               
                ))    
               ) : <div>No record</div>
-              
             }
-            
           </tbody>
         </Table>
         )}

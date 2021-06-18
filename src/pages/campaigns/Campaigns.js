@@ -259,6 +259,7 @@ const Campaigns = (props) => {
                   <Dropdown.Item as={Link} to={`/leads/Leads/${row.id}`}>
                     <FontAwesomeIcon icon={faPlus} className="me-2" /> Campaign Lead
                    </Dropdown.Item>   
+                   
                   </Dropdown.Menu>
                   </Dropdown>
                     </td>

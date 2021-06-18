@@ -194,7 +194,8 @@ const LeadNotes = (props) => {
             <thead>
             <tr>
               <th className="border-top">Id</th>
-              
+              <th className="border-top">Updated by</th>
+              <th className="border-top">Notes</th>
               <th className="border-top">Action</th>
             </tr>
             </thead>
@@ -210,7 +211,12 @@ const LeadNotes = (props) => {
                               <td>
                                 {row.id}
                               </td>        
-                              
+                              <td>
+                                {row.updated_by}
+                              </td>
+                              <td>
+                                {row.notes}
+                              </td>
                               <td>
                             <Dropdown as={ButtonGroup}>
                             <Dropdown.Toggle as={Button} split variant="link" className="text-dark m-0 p-0">

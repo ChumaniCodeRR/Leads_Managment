@@ -28,29 +28,19 @@ const LeadsStatus = (props) => {
   const leadslist = useSelector((state) => state.leads);
   const [isloading, setisloading] = useState(false);
 
-  const [leads, setLeads] = useState([]);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [searchResults, setSearchResults] = useState([]);
+  const [status, setLeads] = useState([]);
+  const[searchTerm, setSearchTerm] = useState("");
+  const[searchResults, setSearchResults] = useState([]); 
+  //pleae fix the get protype in API backend 
 
-    //pleae fix the get protype in API backend 
-
-  /*useEffect(() => {
+  useEffect(() => {
     setisloading(true);
-    //dispatch(getLeadsStatus()).then(() => {
+     dispatch(getLeadsStatus()).then(() => {
       setisloading(false);
     });
     setLeads(leadslist.leads);
-    if (searchTerm === "") {
-      return;
-    } else {
-      setSearchResults(
-        leads.filter((lead) =>
-          lead.name.toLowerCase().includes(searchTerm.toLowerCase())
-        )
-      );
-    }
-  }, [leads, searchTerm]);*/
-
+    
+  }, [status]);
 
     return (
       <>
@@ -63,15 +53,8 @@ const LeadsStatus = (props) => {
             </Breadcrumb>
             <h4>Leads Status</h4>
             <p className="mb-0">Leads Status analytics records.</p>
-          </div>
-          
-          <div className="btn-toolbar mb-2 mb-md-0">
-            <ButtonGroup>
-              <Button variant="outline-primary" size="sm">Import</Button>
-            </ButtonGroup>
-          </div>
+          </div>        
         </div>
-
         <Card border="light" className="table-wrapper table-responsive shadow-sm">
         <Card.Body className="pt-0">
          <Card.Header>
@@ -89,18 +72,22 @@ const LeadsStatus = (props) => {
             <tbody>
               {
                 (searchTerm === "" ? leadslist.leads : searchResults)
-                .slice(
+                // leadslist.leads.length ? (
+                  .slice(
                   page * rowsPerPage,
                   page * rowsPerPage + rowsPerPage
-                )
+                  )
                 .map((row) => (
                   <tr key={row.id}> 
                       <td>
                         {row.id}
-                      </td>          
-                     
+                      </td>      
+                      <td> 
+                         {row.name}
+                      </td>        
                   </tr>
                 ))
+               // ) : <div>No record</div>
               }
             </tbody>
              </Table>

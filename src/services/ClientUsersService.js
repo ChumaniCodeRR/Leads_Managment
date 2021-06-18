@@ -23,7 +23,7 @@ const API_URL = process.env.REACT_APP_API_URL;
         })          
     }
     
-    const returnClientUsersById = async (id) => { 
+    /*const returnClientUsersById = async (id) => { 
         const token = getToken();
         return await axios.get(API_URL + `clientsUsers/${id}?api_token=${token}`).then((response) => { 
             return response.data.data;
@@ -31,7 +31,7 @@ const API_URL = process.env.REACT_APP_API_URL;
         .catch((err) =>{
             return err;
         })        
-    }
+    }*/
     
     const UpdateClientUsers = async (id,data) => {
         const token = getToken();
@@ -67,7 +67,7 @@ export default {
     removeClientUsers,
     actOrdectClientUsers,
     UpdateClientUsers,
-    returnClientUsersById,
+    //returnClientUsersById,
     createClientUsers
 }
 

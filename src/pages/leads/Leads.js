@@ -120,7 +120,7 @@ const Leads = (props) => {
             <Dropdown.Toggle as={Button} variant="primary" size="sm" className="me-2">
             <FontAwesomeIcon icon={faPlus} className="me-2" />New
             <Dropdown.Menu className="dashboard-dropdown dropdown-menu-left mt-2">
-            <Dropdown.Item className="fw-bold" as={Link} to={Routes.CreateLeads.path}>
+            <Dropdown.Item className="fw-bold" as={Link} to={`/leads/CreateLeads/${id}`}>
               <FontAwesomeIcon icon={faPhabricator} className="me-2" /> Create Lead
              </Dropdown.Item>
              </Dropdown.Menu>
@@ -170,14 +170,13 @@ const Leads = (props) => {
             <tr>
               <th className="border-top">Lead Data</th>
               <th className="border-top">Status</th>
-              <th className="border-top">Notes</th>
               <th className="border-top">Action</th>
             </tr>
           </thead>
           <tbody>
             {
-              //(searchTerm === "" ? adminlist.admins : searchResults)
-             leadslist.leads.length ? (
+             (searchTerm === "" ? leadslist.leads : searchResults) ? (
+              leadslist.leads.length ? (
               leadslist.leads.slice(
                 page * rowsPerPage,
                 page * rowsPerPage + rowsPerPage
@@ -185,24 +184,18 @@ const Leads = (props) => {
               .map((row) => (
                 <tr key={row.id}> 
                     <td>
-                      <table>
-                        <tr>
-                          <th>.
-                          <td>{row.data.last_name}</td>
-                          <td>{row.data.first_name}</td>
-                          <td>{row.data.email}</td>
-                          <td>{row.data.comment_}</td>
-                          </th>
-                        </tr>
-                      </table>  
+                      {row.id}
+                    </td>
+                    <td> 
+                      <p>Last Name : {row.data.last_name}</p>
+                      <p>First Name : {row.data.first_name}</p>
+                      <p>Email : {row.data.email}</p>
+                      <p>Comments : {row.data.comment_}</p>  
                     </td>        
                     <td className="fw-normal">
-                        <span className={`fw-normal text-${row.lead_status === "received" ? "success" : "sold" ? "danger" : "primary"}`}>
-                        {row.lead_status}
+                        <span className={`fw-normal text-${row.data.lead_status === "received" ? "success" : "sold" ? "danger" : "primary"}`}>
+                        {row.data.lead_status}
                         </span>
-                    </td>
-                    <td>
-                      {row.notes}
                     </td>
                     <td>
                   <Dropdown as={ButtonGroup}>
@@ -212,21 +205,22 @@ const Leads = (props) => {
                       </span>
                   </Dropdown.Toggle>
                   <Dropdown.Menu>
-                  <Dropdown.Item as={Link} to={Routes.UpdateLeads.path}>
+                  <Dropdown.Item as={Link} to={`/leads/UpdateLeads/${row.id}`}>
                     <FontAwesomeIcon icon={faEdit} className="me-2" /> Edit           
                   </Dropdown.Item>
                   <Dropdown.Item className="text-danger" onClick={() => confirmButton()}>
                     <FontAwesomeIcon icon={faTrashAlt} className="me-2" /> Remove
                   </Dropdown.Item>
                   <Dropdown.Item as={Link} to={`/leadnotes/LeadNotes/${row.id}`}>
-                    <FontAwesomeIcon icon={faExternalLinkAlt} className="me-2" /> Leads notes           
-                  </Dropdown.Item>
+                     <FontAwesomeIcon icon={faExternalLinkAlt} className="me-2" /> Leads Notes
+                   </Dropdown.Item>
                   </Dropdown.Menu>
                   </Dropdown>
                     </td>
                 </tr>
               ))
               ) : <div>No record</div>
+             ) : <div>no</div>
             }
           </tbody>
         </Table>

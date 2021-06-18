@@ -43,8 +43,8 @@ const API_URL = process.env.REACT_APP_API_URL;
 
     const returnLeadsStatus = async () => {
        const token = getToken();
-       return await axios.get(API_URL + `lead/status?api_token=${token}`).then((response) => {
-        return response.data;
+       return await axios.get(API_URL + `leads/status?api_token=${token}`).then((response) => {
+        return response.data.data;
        })
        .catch((err) =>{
           return err;
