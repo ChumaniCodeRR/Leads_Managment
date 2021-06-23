@@ -101,7 +101,7 @@ const UpdateLeads = (props) => {
             <Col md={6} className="mb-3">
               <Form.Group id="comments">
               <Form.Label>Lead Notes</Form.Label>
-              <Form.Control as="textarea" rows="4" value={inputs.notes} placeholder="Enter your comment..."/>
+              <Form.Control as="textarea" rows="4" placeholder="Enter your comment..."/>
               </Form.Group>
             </Col>
           </Row>

@@ -5,6 +5,9 @@ export const Routes = {
     DashboardOverview: { path: "/dashboard/overview" },
     Transactions: { path: "/transactions" },
     //newly added pages
+
+    AdminDashboard: { path: "/dashboard/AdminDashboard"},
+
     Admin: { path: "/admin/Administration" },
     Client: { path: "/client/Clients"},
 
@@ -35,7 +38,7 @@ export const Routes = {
 
     LeadsNotes : { path: "/leadnotes/LeadNotes/:id"},
 
-    Profile: { path: "/examples/profile"},
+    Profile: { path: "/profile"},
 
     Settings: { path: "/settings" },
     Upgrade: { path: "/upgrade" },
@@ -51,6 +54,7 @@ export const Routes = {
     ServerError: { path: "/examples/500" },
 
     // docs
+
     DocsOverview: { path: "/documentation/overview" },
     DocsDownload: { path: "/documentation/download" },
     DocsQuickStart: { path: "/documentation/quick-start" },

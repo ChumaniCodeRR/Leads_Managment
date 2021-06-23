@@ -6,6 +6,7 @@ import { Routes } from "../routes";
 import Presentation from "./Presentation";
 import Upgrade from "./Upgrade";
 import DashboardOverview from "./dashboard/DashboardOverview";
+import AdminDashboard from "./dashboard/AdminDashboard";
 import Transactions from "./Transactions";
 import Settings from "./Settings";
 import BootstrapTables from "./tables/BootstrapTables";
@@ -137,6 +138,7 @@ export default () => (
     <RouteWithSidebar exact path={Routes.DashboardOverview.path} component={DashboardOverview} />
     <RouteWithSidebar exact path={Routes.Upgrade.path} component={Upgrade} />
     <RouteWithSidebar exact path={Routes.Transactions.path} component={Transactions} />
+    <RouteWithSidebar exact path={Routes.AdminDashboard.path} component={AdminDashboard} />
 
      {/* Newly added Pages*/}
     <RouteWithSidebar exact path={Routes.Admin.path} component={Administration}/>

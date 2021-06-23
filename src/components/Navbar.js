@@ -4,17 +4,17 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBell, faCog, faEnvelopeOpen, faSearch, faSignOutAlt, faUserShield } from "@fortawesome/free-solid-svg-icons";
 import { faUserCircle } from "@fortawesome/free-regular-svg-icons";
 import { Row, Col, Nav, Form, Image, Navbar, Dropdown, Container, ListGroup, InputGroup } from '@themesberg/react-bootstrap';
-
 import NOTIFICATIONS_DATA from "../data/notifications";
 import Profile3 from "../assets/img/team/profile-picture-3.jpg";
 import { Routes } from "../routes";
 import { Link } from 'react-router-dom';
 import { useForm } from "react-hook-form";
-import { logout } from '../actions/Authentication';
 import { getUser, removeUserSession } from '../helpers/utils';
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import {getProfile} from '../actions/UserProfileActions';
+import { getProfile } from '../actions/UserProfileActions';
+import {login, logout} from '../actions/Authentication';
+
 
 export default (props) => {
   const [notifications, setNotifications] = useState(NOTIFICATIONS_DATA);
@@ -55,20 +55,19 @@ export default (props) => {
   };*/
 
   const history = useHistory();
-  //const user = getUser();
-
-  const handleLogOut = () => {
-    dispatch(logout())
-    removeUserSession();
-    history.push('/');
+ 
+  const logOutProfile = () => {
+      dispatch(logout())
+      history.push("/");
+      removeUserSession();
   }
 
   const dispatch = useDispatch();
   const profile = useSelector((state) => state.profile)
   
-  useEffect(() => {
-    dispatch(getProfile());
-  }, []);
+  //useEffect(() => {
+  //  dispatch(getUser());
+  //}, []);
 
   return (
     <Navbar variant="dark" expanded className="ps-0 pe-2 pb-0">
@@ -78,7 +77,6 @@ export default (props) => {
             <Form className="navbar-search">
               <Form.Group id="topbarSearch">
                 <InputGroup className="input-group-merge search-bar">
-                  
                 </InputGroup>
               </Form.Group>
             </Form>
@@ -102,7 +100,6 @@ export default (props) => {
                 </ListGroup>
               </Dropdown.Menu>
             </Dropdown>
-
             <Dropdown as={Nav.Item}>
               <Dropdown.Toggle as={Nav.Link} className="pt-1 px-0">
                 <div className="media d-flex align-items-center">
@@ -126,7 +123,7 @@ export default (props) => {
                   <FontAwesomeIcon icon={faUserShield} className="me-2" /> Support
                 </Dropdown.Item>
                 <Dropdown.Divider />
-                <Dropdown.Item className="fw-bold" onClick={handleLogOut}>
+                <Dropdown.Item className="fw-bold" onClick={logOutProfile}>
                   <FontAwesomeIcon icon={faSignOutAlt} className="text-danger me-2" /> Logout
                 </Dropdown.Item>
               </Dropdown.Menu>

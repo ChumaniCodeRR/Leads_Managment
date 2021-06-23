@@ -55,7 +55,6 @@ const CreateNewCampaign = (props) => {
 
     // check for Id selected in client list continue 
     const handleChange = e => {
-
       setSelectedValue(e.value);
       const index = e.target.selectedIndex;
       const el = e.target.childNodes[index]
@@ -73,14 +72,13 @@ const CreateNewCampaign = (props) => {
         setisloading(false);
       });
       setClients(clientlist.clients);
-
       setStartDate(inputs.start_date);
       setEndDate(inputs.end_date);
       
-    }, [clients]);
+    }, [clients, errors]);
 
     function onSubmit() {
-      dispatch(createNewCampaign(inputs))
+      dispatch(createNewCampaign(inputs,id))
       .then(() => {
          successMessage();
       })
@@ -97,7 +95,7 @@ const CreateNewCampaign = (props) => {
         showConfirmButton: false,
         timer: 1500,
       }).then(() => {
-        //props.history.push(`/client-users/clientUsers/${id}`);
+         props.history.push(`/campaigns/Campaigns/${id}`);
       });
     }
 
@@ -195,22 +193,6 @@ const CreateNewCampaign = (props) => {
                 <div className="text-danger">This field is required</div>
               )}
             </Col>
-            </Row>
-            <Row>
-              <Col sm={4} className="mb-3">
-                <Form.Group className="mb-2">
-                  <Form.Label>Select Client</Form.Label>
-                  <Form.Select onChange={handleChange}>
-                      {
-                        clientlist.clients.map(item =>
-                         <option value={item.client_list_id}>
-                          {item.name}
-                         </option>
-                        ) 
-                      }
-                  </Form.Select>
-                </Form.Group>
-              </Col>
             </Row>
          <div className="mt-3">
             <Button variant="primary" type="submit">Create</Button>

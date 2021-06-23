@@ -11,6 +11,7 @@ import { Link } from 'react-router-dom';
 import { Routes } from "../../routes";
 import Spinner from '../../helpers/spinner';
 import Swal from "sweetalert2";
+import TablePagination from "@material-ui/core/TablePagination";
 
 
 const ClientUsers = (props) => {
@@ -260,24 +261,20 @@ const ClientUsers = (props) => {
         </Table>
         )}
         <Card.Footer className="px-3 border-0 d-lg-flex align-items-center justify-content-between">
-         <Nav>
-           <Pagination className="mb-2 mb-lg-0">
-             <Pagination.Prev>
-               Previous
-             </Pagination.Prev>
-             <Pagination.Item active>1</Pagination.Item>
-             <Pagination.Item>2</Pagination.Item>
-             <Pagination.Item>3</Pagination.Item>
-             <Pagination.Item>4</Pagination.Item>
-             <Pagination.Item>5</Pagination.Item>
-             <Pagination.Next>
-               Next
-             </Pagination.Next>
-           </Pagination>
-         </Nav>
-         <small className="fw-bold">
-           Showing <b> </b> out of <b>25</b> entries
-         </small>
+        <TablePagination
+            rowsPerPageOptions={[10,15,20,100, 1000, 2000]}
+            component="div"
+            count={
+              searchTerm === "" ? clientuserslist.clientUsers.length : searchResults.length
+            }
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onChangePage={handleChangePage}
+            onChangeRowsPerPage={handleChangeRowsPerPage}
+          />
+          <small className="fw-bold">
+            Showing <b> </b> out of {page} <b>25</b> entries
+          </small>
        </Card.Footer>
           </Card.Body>
          </Card>

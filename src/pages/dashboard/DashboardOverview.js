@@ -6,6 +6,8 @@ import { Col, Row, Button, Dropdown, ButtonGroup } from '@themesberg/react-boots
 import { CounterWidget, CircleChartWidget, BarChartWidget, TeamMembersWidget, ProgressTrackWidget, RankingWidget, SalesValueWidget, SalesValueWidgetPhone, AcquisitionWidget } from "../../components/Widgets";
 import { PageVisitsTable } from "../../components/Tables";
 import { trafficShares, totalOrders } from "../../data/charts";
+import { Link, Route } from 'react-router-dom';
+import { Routes } from "../../routes";
 
 export default () => {
   return (
@@ -13,31 +15,18 @@ export default () => {
       <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4">
         <Dropdown className="btn-toolbar">
           <Dropdown.Toggle as={Button} variant="primary" size="sm" className="me-2">
-            <FontAwesomeIcon icon={faPlus} className="me-2" />New Task
+            <FontAwesomeIcon icon={faPlus} className="me-2" />Out line stats 
           </Dropdown.Toggle>
           <Dropdown.Menu className="dashboard-dropdown dropdown-menu-left mt-2">
-            <Dropdown.Item className="fw-bold">
-              <FontAwesomeIcon icon={faTasks} className="me-2" /> New Task
+            <Dropdown.Item className="fw-bold" as={Link} to={Routes.AdminDashboard.path}>
+              <FontAwesomeIcon icon={faTasks} className="me-2" /> Admin Stats
             </Dropdown.Item>
             <Dropdown.Item className="fw-bold">
-              <FontAwesomeIcon icon={faCloudUploadAlt} className="me-2" /> Upload Files
-            </Dropdown.Item>
-            <Dropdown.Item className="fw-bold">
-              <FontAwesomeIcon icon={faUserShield} className="me-2" /> Preview Security
-            </Dropdown.Item>
-
-            <Dropdown.Divider />
-
-            <Dropdown.Item className="fw-bold">
-              <FontAwesomeIcon icon={faRocket} className="text-danger me-2" /> Upgrade to Pro
+              <FontAwesomeIcon icon={faCloudUploadAlt} className="me-2" /> Client Stats
             </Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
 
-        <ButtonGroup>
-          <Button variant="outline-primary" size="sm">Share</Button>
-          <Button variant="outline-primary" size="sm">Export</Button>
-        </ButtonGroup>
       </div>
 
       <Row className="justify-content-md-center">

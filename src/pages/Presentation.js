@@ -84,7 +84,10 @@ export default () => {
     <>
       <section className="section-header overflow-hidden pt-5 pt-lg-4 pb-9 pb-lg-5" id="home">
         <Container>
-          <Row>
+          <table>
+            <tr>
+              <td>
+              <Row>
             <Col xs={12} className="text-center">
               <div className="react-big-icon d-none d-lg-block"><span className="fab fa-react"></span></div>
               <h1 className="fw-bolder text-secondary">Vetro Media Lead Management</h1>
@@ -100,11 +103,16 @@ export default () => {
               </div>
             </Col>
           </Row>
-          <Row className="mt-lg-5">
-            <Col xs={12} className="text-center">
-              <Image src={lead}/>
-            </Col>
-          </Row>
+              </td>
+              <td>
+              <Row className="mt-lg-7">
+                <Col xs={15} >
+                 <Image src={lead}/>
+               </Col>
+              </Row>
+              </td>
+            </tr>
+          </table>
         </Container>
       </section>
     </>

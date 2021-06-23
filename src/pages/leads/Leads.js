@@ -147,7 +147,6 @@ const Leads = (props) => {
             </Col>
           </Row>
         </div>
-
         <Card border="light" className="table-wrapper table-responsive shadow-sm">
         <Card.Body className="pt-0">
         <Card.Header>
@@ -168,6 +167,7 @@ const Leads = (props) => {
           <Table hover className="user-table align-items-center">
           <thead>
             <tr>
+              <th className="border-top">Id</th>
               <th className="border-top">Lead Data</th>
               <th className="border-top">Status</th>
               <th className="border-top">Action</th>
@@ -193,8 +193,8 @@ const Leads = (props) => {
                       <p>Comments : {row.data.comment_}</p>  
                     </td>        
                     <td className="fw-normal">
-                        <span className={`fw-normal text-${row.data.lead_status === "received" ? "success" : "sold" ? "danger" : "primary"}`}>
-                        {row.data.lead_status}
+                        <span className={`fw-normal text-${row.lead_status === "received" ? "success" : "sold" ? "danger" : "primary"}`}>
+                        {row.lead_status}
                         </span>
                     </td>
                     <td>

@@ -52,7 +52,7 @@
     "react-datetime": "^3.0.4",
     "react-dom": "^16.13.1",
     "react-github-btn": "^1.2.0",
-    "react-hook-form": "^7.4.0",
+    "react-hook-form": "^7.9.0",
     "react-hooks-useform": "^0.1.86",
     "react-live": "^2.2.3",
     "react-redux": "^7.2.3",
