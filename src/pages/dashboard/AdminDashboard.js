@@ -13,7 +13,7 @@ const AdminDashboard = () => {
     const [chart, setChart] = useState({
        data: [ 
            {
-               data:"",
+               clients:"",
            }
        ]
     })
@@ -27,18 +27,22 @@ const AdminDashboard = () => {
             setChart({
                 data : [
                     {
-                        data: da.clients, 
+                        clients: da, 
                     }
                 ]
             });
+            console.log(da);
             setisloading(false);
         });
     },[])
+    //"data":[{"clients":18}]
+
+    console.log(chart);
 
     const trafficShares = [
-        { id: 1, label: "Desktop", value: chart.value.data , color: "secondary", icon: faDesktop },
-        { id: 2, label: "Mobile Web", value: chart.data.length, color: "primary", icon: faMobileAlt },
-        { id: 3, label: "Tablet Web", value: chart.data.length, color: "tertiary", icon: faTabletAlt }
+        { id: 1, label: "Desktop", value: chart, color: "secondary", icon: faDesktop },
+        //{ id: 2, label: "Mobile Web", value: chart.data.length, color: "primary", icon: faMobileAlt },
+        //{ id: 3, label: "Tablet Web", value: chart.data.length, color: "tertiary", icon: faTabletAlt }
     ];
 
     return (

@@ -17,8 +17,9 @@ import TablePagination from "@material-ui/core/TablePagination";
 
 
 
-const Admins = (props) => {
+const Admins = () => {
 
+  //paging
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const handleChangePage = (event, newPage) => {
@@ -29,19 +30,20 @@ const Admins = (props) => {
     setPage(0);
   };
 
+  //redux 
   const dispatch = useDispatch();
   const adminlist = useSelector((state) => state.admins);
   const [isloading, setisloading] = useState(false);
 
+  //search control
   const[admins, setAdmins] = useState([]);
   const[searchTerm, setSearchTerm] = useState("");
   const[searchResults, setSearchResults] = useState([]); 
 
-  const id = props.match.params.id;
 
-  const handleChange = (e) => {
+const handleChange = (e) => {
     setSearchTerm(e.target.value);
-  };
+};
 
 useEffect(() => {
     setisloading(true);
@@ -54,7 +56,7 @@ useEffect(() => {
     } else {
       setSearchResults(
         admins.filter((admin) =>
-          admin.name.toLowerCase().includes(searchTerm.toLowerCase())
+          admin.first_name.toLowerCase().includes(searchTerm.toLowerCase())
         )
       );
     }
@@ -181,7 +183,12 @@ useEffect(() => {
                 <InputGroup.Text>
                   <FontAwesomeIcon icon={faSearch} />
                 </InputGroup.Text>
-                <Form.Control type="text" className="form-control" onChange={handleChange} placeholder="Search" />
+                <input 
+                 type="text" 
+                 className="form-control" 
+                 onChange={handleChange}
+                 placeholder="Search" 
+                />
               </InputGroup>               
          </Col>
           </Row>
@@ -251,7 +258,9 @@ useEffect(() => {
             rowsPerPageOptions={[10,15,20,100, 1000, 2000]}
             component="div"
             count={
-              searchTerm === "" ? adminlist.admins.length : searchResults.length
+              searchTerm === "" 
+              ? adminlist.admins.length 
+              : searchResults.length
             }
             rowsPerPage={rowsPerPage}
             page={page}

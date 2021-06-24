@@ -61,7 +61,7 @@ const Campaigns = (props) => {
       } else {
         setSearchResults(
           campaigns.filter((campaign) =>
-            campaign.name.toLowerCase().includes(searchTerm.toLowerCase())
+            campaign.client.toLowerCase().includes(searchTerm.toLowerCase())
           )
         );
       }

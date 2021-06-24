@@ -59,7 +59,7 @@ const Leads = (props) => {
       } else {
         setSearchResults(
           leads.filter((lead) =>
-            lead.name.toLowerCase().includes(searchTerm.toLowerCase())
+            lead.lead_status.toLowerCase().includes(searchTerm.toLowerCase())
           )
         );
       }
