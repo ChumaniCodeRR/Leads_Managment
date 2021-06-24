@@ -1,4 +1,4 @@
-/*import authenticateService from '../services/authenticateService';
+import authenticateService from '../services/authenticateService';
 import { RESET_PASSWORD_FAIL, RESET_PASSWORD_SUCCESS } from './type';
 
 export const ResetPassword = (email) => (dispatch) => {
@@ -12,4 +12,4 @@ export const ResetPassword = (email) => (dispatch) => {
             error,
         });
     });
-};*/
+};
