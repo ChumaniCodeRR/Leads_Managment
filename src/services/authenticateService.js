@@ -30,9 +30,9 @@ const logout = () => {
 };
 
 const PasswordReset = (email) => {
-    return axios.post(API_URL + `password/reset` , email)
-    .then((response) => {
-        return response.data;
+    return axios.post(API_URL + "password/reset" , email)
+    .then((response) => {   
+          return response.data;       
     })
 }
 

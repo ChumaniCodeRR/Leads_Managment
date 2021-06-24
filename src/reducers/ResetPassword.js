@@ -8,6 +8,8 @@ export default function resetPassword(state = initialState, action){
     switch(type){
         case RESET_PASSWORD_SUCCESS:
             return {
+                ...state,
+                ...action.payload,
                 success:true
             }
         case RESET_PASSWORD_FAIL:
