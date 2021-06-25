@@ -8,9 +8,9 @@ node_modules/
 dist/
 build/
 .vscode/
-.env/
-package-lock.json/
-yarn.lock/
+.env
+package-lock.json
+yarn.lock
 
 # Compiled Java class files
 *.class
