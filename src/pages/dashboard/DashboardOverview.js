@@ -15,7 +15,7 @@ export default () => {
       <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4">
         <Dropdown className="btn-toolbar">
           <Dropdown.Toggle as={Button} variant="primary" size="sm" className="me-2">
-            <FontAwesomeIcon icon={faPlus} className="me-2" />Out line stats 
+            <FontAwesomeIcon icon={faPlus} className="me-2" />Outline stats 
           </Dropdown.Toggle>
           <Dropdown.Menu className="dashboard-dropdown dropdown-menu-left mt-2">
             <Dropdown.Item className="fw-bold" as={Link} to={Routes.AdminDashboard.path}>

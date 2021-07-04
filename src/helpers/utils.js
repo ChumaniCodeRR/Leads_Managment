@@ -17,3 +17,12 @@ export const setUserSession = (token, user) => {
     sessionStorage.setItem('access_token', token);
     sessionStorage.setItem('user', JSON.stringify(user));
   }
+  
+export const getStore = () => {
+  //if (!user) return
+  return JSON.parse(localStorage.getItem('user')) || null;
+}
+
+export const getUsers = () => {
+  const user = JSON.parse(localStorage.getItem("user"));
+}

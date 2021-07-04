@@ -1,5 +1,6 @@
 import axios from "axios";
 import { getToken } from '../helpers/utils';
+
 const API_URL = process.env.REACT_APP_API_URL;
 
 
@@ -15,6 +16,7 @@ const API_URL = process.env.REACT_APP_API_URL;
     .then((response) => {
         if(response.data.success === true){
             localStorage.setItem('user', JSON.stringify(response.data.data.access_token));
+            
         } else {
             console.log("No user")
         }

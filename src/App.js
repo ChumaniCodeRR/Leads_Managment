@@ -26,7 +26,6 @@ class App extends Component {
             <HashRouter>
               <HomePage/>
               <ScrollToTop />
-              
             </HashRouter>
         )
     }

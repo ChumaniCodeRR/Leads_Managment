@@ -3,14 +3,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleLeft, faEnvelope, faUnlockAlt } from "@fortawesome/free-solid-svg-icons";
 import { faFacebookF, faGithub, faTwitter } from "@fortawesome/free-brands-svg-icons";
 import { Col, Row, Form, Card, Button, FormCheck, Container, InputGroup, Spinner } from '@themesberg/react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link,useLocation  } from 'react-router-dom';
 import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector  } from "react-redux";
 import Swal from "sweetalert2";
 import { Routes } from "../routes";
 import BgImage from "../assets/img/illustrations/signin.svg";
-import {login} from '../actions/Authentication';
-
+import {login,logout} from '../actions/Authentication';
 
 const Signin = (props) => {
 
@@ -19,43 +18,41 @@ const Signin = (props) => {
     password:"",
  });
 
+ const [submitted, setSubmitted] = useState(false);
  const [isloading , setisloading] = useState(false)
- //const { register , handleSubmit, formState: { errors } } = useForm();
- //const { register, handleSubmit, formState: { errors }} = useForm();
- //const { register, handleSubmit, errors } = useForm();
- //const {register, handleSubmit, formState: { errors }} = useForm();
- 
- const { register, handleSubmit, formState: { errors }, reset  } = useForm();
+ const {register, handleSubmit, formState: { errors }} = useForm();
   
  const { email, password } = inputs;
+ const loggingIn = useSelector(state => state.authentication.loggingIn);
  const dispatch = useDispatch();
+ const location = useLocation();
 
- function onChange(e){
+ // reset login status
+  useEffect(() => { 
+    dispatch(logout()); 
+  }, []);
+
+ function handleChange(e) {
   const { name, value } = e.target;
-  setInputs((inputs) => ({ ...inputs, [name]: value }));
+  setInputs(inputs => ({ ...inputs, [name]: value }));
 }
 
-
- function onSubmit() {
-  setisloading(true)
-  dispatch(login(inputs))
-      .then((res) => {
-       setisloading(false) 
-       props.history.push("/dashboard/overview");
-     })
-     .catch(() => {
-       errorMessage()
-     })
-  }
-
-  /*function onSubmit(e) {
-    if(inputs.email && inputs.password) {
-      dispatch(login(inputs))
-      props.history.push('/dashboard/overview')
-    } else {
-      errorMessage();
-    }
-  }*/
+ function onSubmit(e) {
+   // login and check valid users 
+    setisloading(true);
+    setSubmitted(true);
+   
+      if(email && password) {
+        dispatch(login(inputs))
+        .then((response) => {
+          if(response.success === true) {
+            props.history.push('/dashboard/overview');
+          } else {
+            errorMessage();
+          }
+       })   
+   }
+}
 
  function errorMessage() {
    Swal.fire({
@@ -63,7 +60,7 @@ const Signin = (props) => {
        title: 'Oops...',
        text: 'Password or username is incorrect!',
      })
-}
+ }
 
  return (
   <main>
@@ -91,14 +88,14 @@ const Signin = (props) => {
                      type='email' 
                      placeholder="Enter email" 
                      value={email} 
-                     onChange={onChange} 
-                     className="form-control" 
+                     onChange={handleChange} 
+                     className={'form-control' + (submitted && !email ? ' is-invalid' : '')}
                      name='email'
                      //{...register("email", {required:true})  }   
                      />    
-                    {errors.email && errors.email.type === "required" && (
-                       <p className="errorMsg">Email is required.</p>
-                    )}
+                   {submitted && !email &&
+                        <div className="invalid-feedback">Username is required</div>
+                    }
                   </InputGroup>      
                 </Form.Group>      
                 <Form.Group>
@@ -110,19 +107,16 @@ const Signin = (props) => {
                       </InputGroup.Text>  
                       <input
                        type='password'
-                       className="form-control"
+                       className={'form-control' + (submitted && !password ? ' is-invalid' : '')}
                        name='password'
                        value={password}
-                       onChange={onChange}
+                       onChange={handleChange}
                        placeholder="Password"
-               
-                //{...register("password", {required:true})  }
-                //{...register("password")}
-                //ref={register}
-              />                   
-               {errors.password && errors.password.type === "required" && (
-                 <p className="errorMsg">Password is required.</p>
-               )}
+                       //{...register("password", {required:true})  }
+                />                   
+                  {submitted && !password &&
+                        <div className="invalid-feedback">Password is required</div>
+                  }
                </InputGroup>
                   </Form.Group>
                   <div className="d-flex justify-content-between align-items-center mb-4">
@@ -135,6 +129,7 @@ const Signin = (props) => {
                   </div>
                 </Form.Group>
                 <Button variant="primary" type="submit">
+                   {loggingIn && <span className="spinner-border spinner-border-sm mr-1"></span>}
                   Sign in
                 </Button>
               </form>

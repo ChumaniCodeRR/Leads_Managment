@@ -11,10 +11,11 @@ import { faDesktop, faMobileAlt, faTabletAlt } from '@fortawesome/free-solid-svg
 const AdminDashboard = () => {
 
     const [chart, setChart] = useState({
-       data: [ 
-           {
-               clients:"",
-           }
+       data: 
+       [ 
+         { 
+           clients:0
+         }
        ]
     })
 
@@ -25,37 +26,36 @@ const AdminDashboard = () => {
         setisloading(true);
         dispatch(GetClientNumber()).then((da) => {
             setChart({
-                data : [
+                data : 
+                [
                     {
                         clients: da, 
                     }
                 ]
             });
-            console.log(da);
             setisloading(false);
         });
     },[])
-    //"data":[{"clients":18}]
-
-    console.log(chart);
+     
+    var result = chart.data[0].clients[0];
+   
+    console.log(result);
 
     const trafficShares = [
-        { id: 1, label: "Desktop", value: chart, color: "secondary", icon: faDesktop },
+        { id: 1, label: "Desktop", value: result , color: "secondary", icon: faDesktop },
         //{ id: 2, label: "Mobile Web", value: chart.data.length, color: "primary", icon: faMobileAlt },
         //{ id: 3, label: "Tablet Web", value: chart.data.length, color: "tertiary", icon: faTabletAlt }
     ];
 
     return (
      <>
-        
-            <Row className="justify-content-md-center">
-             <Col xs={12} sm={6} xl={4} className="mb-4">
-               <CircleChartWidget
-               title="Traffic Share"
-               data={trafficShares} />
-              </Col>
-            </Row>
-          
+        <Row className="justify-content-md-center">
+            <Col xs={12} sm={6} xl={4} className="mb-4">
+             <CircleChartWidget
+             title="Traffic Share"
+             data={trafficShares} />
+            </Col>
+        </Row>
      </>
     )
 }

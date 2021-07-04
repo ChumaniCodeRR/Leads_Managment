@@ -7,7 +7,6 @@ import { Link } from 'react-router-dom';
 import { HashLink } from 'react-router-hash-link';
 import Code from "../components/CodeEditor";
 import GitHubButton from 'react-github-btn';
-
 import { Routes } from "../routes";
 import ThemesbergLogoIcon from "../assets/img/themesberg.svg";
 import ThemesbergLogo from "../assets/img/themesberg-logo.svg";
@@ -22,9 +21,9 @@ import ReactLogo from "../assets/img/technologies/react-logo.svg";
 import Profile from "../assets/img/profile-cover.jpg";
 import timeandmoneyPic from "../assets/img/time-and-money.gif";
 import lead from "../assets/img/Lead_System.gif";
-
 import pages from "../data/pages";
 import features from "../data/features";
+import Page from "../pages/page.css";
 
 export default () => {
   const PagePreview = (props) => {
@@ -82,7 +81,7 @@ export default () => {
 
   return (
     <>
-      <section className="section-header overflow-hidden pt-5 pt-lg-4 pb-9 pb-lg-5" id="home">
+        <section className="section-header overflow-hidden pt-5 pt-lg-4 pb-9 pb-lg-5" id="home">
         <Container>
           <table>
             <tr>
@@ -115,6 +114,7 @@ export default () => {
           </table>
         </Container>
       </section>
+      
     </>
   );
 };
